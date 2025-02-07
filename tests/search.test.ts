@@ -6,21 +6,13 @@ test.describe("Search", () => {
     homePage,
     searchResultsPage,
   }) => {
-    await test.step("Click on search bar", async () => {
-      await homePage.navigationBar.clickSearchButton();
-    });
+    await homePage.navigationBar.clickSearchButton();
 
     const randomSuggestion =
-      await test.step("Select a random search suggestion", async () => {
-        return await homePage.navigationBar.searchContainer.selectRandomSearchSuggestion();
-      });
-
-    const keywords =
-      await test.step("Extract keywords from selected suggestion", async () => {
-        return homePage.navigationBar.searchContainer.extractWords(
-          randomSuggestion
-        );
-      });
+      await homePage.navigationBar.searchContainer.selectRandomSearchSuggestion();
+    const keywords = await homePage.navigationBar.searchContainer.extractWords(
+      randomSuggestion
+    );
 
     await test.step("Verify that search results header contains suggestion keywords", async () => {
       await Promise.all(

@@ -1,41 +1,51 @@
-import { Locator, Page } from "@playwright/test";
+import test, { Locator, Page } from "@playwright/test";
 
 export class SearchContainer {
   private page: Page;
-
-  private searchSuggestionButton: Locator;
+  private locators: SearchContainerLocators;
 
   constructor(page: Page) {
     this.page = page;
+    this.locators = new SearchContainerLocators(page);
+  }
 
+  async selectRandomSearchSuggestion(): Promise<string> {
+    return await test.step("Select a random search suggestion", async () => {
+      const searchSuggestions =
+        await this.locators.searchSuggestionButton.all();
+      const suggestions: string[] = [];
+
+      for (const suggestion of searchSuggestions) {
+        const text = await suggestion.textContent();
+        if (text !== null) {
+          suggestions.push(text);
+        }
+      }
+
+      const i = Math.floor(Math.random() * suggestions.length);
+      const selectedSuggestion = suggestions[i];
+
+      await this.locators.searchSuggestionButton
+        .getByText(selectedSuggestion, { exact: true })
+        .click();
+
+      return selectedSuggestion;
+    });
+  }
+
+  async extractWords(text: string): Promise<string[]> {
+    return await test.step("Extract keywords from selected suggestion", async () => {
+      return text.split(/\s+/).filter(Boolean);
+    });
+  }
+}
+
+class SearchContainerLocators {
+  searchSuggestionButton: Locator;
+
+  constructor(page: Page) {
     this.searchSuggestionButton = page.locator(
       'ul[class*="search-helper-list"] li a'
     );
   }
-
-  async selectRandomSearchSuggestion(): Promise<string> {
-    const searchSuggestions = await this.searchSuggestionButton.all();
-    const suggestions: string[] = [];
-
-    for (const suggestion of searchSuggestions) {
-      const text = await suggestion.textContent();
-      if (text !== null) {
-        suggestions.push(text);
-      }
-    }
-
-    const i = Math.floor(Math.random() * suggestions.length);
-    const selectedSuggestion = suggestions[i];
-
-    await this.searchSuggestionButton
-      .getByText(selectedSuggestion, { exact: true })
-      .click();
-
-    return selectedSuggestion;
-  }
-
-  extractWords(text: string): string[] {
-    return text.split(/\s+/).filter(Boolean)
-  }
 }
-  

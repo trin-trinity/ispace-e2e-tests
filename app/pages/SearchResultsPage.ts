@@ -1,5 +1,4 @@
-import { Page } from "@playwright/test";
-import { SearchResultsPageLocators } from "../locators/SearchResultsLocators";
+import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class SearchResultsPage extends BasePage {
@@ -11,7 +10,15 @@ export class SearchResultsPage extends BasePage {
     this.locators = new SearchResultsPageLocators(this.page);
   }
 
-  getHeaderLocator = () => this.locators.getHeader();
+  getHeaderLocator = () => this.locators.header;
+  getHeaderText = async () => await this.locators.header.textContent();
+}
 
-  getHeaderText = async () => await this.locators.getHeader().textContent();
+
+class SearchResultsPageLocators {
+  header: Locator
+  
+  constructor(page: Page) {
+    this.header = page.locator("h1");
+  }
 }
