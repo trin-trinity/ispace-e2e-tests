@@ -8,10 +8,54 @@ export class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
 
-    this.navigationBar = new NavigationBar(page)
+    this.navigationBar = new NavigationBar(page);
   }
 
   async navigateTo() {
     await super.navigateTo("https://ispace.ua/ua/");
+  }
+
+  private async selectSearchSuggestion(suggestion: string) {
+    await this.navigationBar.search
+      .getSuggestionLocator()
+      .getByText(suggestion, { exact: true })
+      .click();
+  }
+
+  private async getRandomSuggestion(): Promise<string> {
+    const suggestions: string[] = [];
+
+    const searchSuggestions = await this.navigationBar.search
+      .getSuggestionLocator()
+      .all();
+
+    for (const suggestion of searchSuggestions) {
+      const text = await suggestion.textContent();
+      
+      if (text !== null) {
+        suggestions.push(text);
+      }
+    }
+
+    const i = Math.floor(Math.random() * suggestions.length);
+    const randomSuggestion = suggestions[i];
+
+    return randomSuggestion;
+  }
+
+  async selectRandomSearchSuggestion(): Promise<string> {
+    const randomSuggestion = await this.getRandomSuggestion();
+
+    await this.selectSearchSuggestion(randomSuggestion);
+    return randomSuggestion
+  }
+
+  extractWords(text: string): string[] {
+    return text.split(/\s+/).filter(Boolean);
+  }
+
+  async searchForQuery(query: string) {
+    await this.navigationBar.search.getSearchFieldLocator().fill(query);
+    await this.page.keyboard.press("Enter");
   }
 }

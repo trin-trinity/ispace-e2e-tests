@@ -7,13 +7,19 @@ test.describe("Search", () => {
     homePage,
     searchResultsPage,
   }) => {
-    await homePage.navigationBar.clickSearchButton();
+    await test.step("Click on search bar", async () => {
+      await homePage.navigationBar.clickSearchButton();
+    });
 
     const randomSuggestion =
-      await homePage.navigationBar.searchContainer.selectRandomSearchSuggestion();
-    const keywords = await homePage.navigationBar.searchContainer.extractWords(
-      randomSuggestion
-    );
+      await test.step("Select a random search suggestion", async () => {
+        return homePage.selectRandomSearchSuggestion();
+      });
+
+    const keywords =
+      await test.step("Extract keywords from selected suggestion", async () => {
+        return homePage.extractWords(randomSuggestion);
+      });
 
     await test.step("Verify that search results header contains suggestion keywords", async () => {
       await Promise.all(
@@ -30,21 +36,24 @@ test.describe("Search", () => {
     homePage,
     searchResultsPage,
   }) => {
-    await homePage.navigationBar.clickSearchButton();
+    await test.step("Click on search bar", async () => {
+      await homePage.navigationBar.clickSearchButton();
+    });
 
-    await homePage.navigationBar.searchContainer.searchForQuery(
-      testData.dummyString
-    );
+    await test.step(`Search for a query: ${testData.dummyString}`, async () => {
+      await homePage.searchForQuery(testData.dummyString);
+    });
 
     await test.step("Verify that the search results count is zero", async () => {
-      await expect(searchResultsPage.getDefaultInfoLocator()).toContainText("0");
+      await expect(searchResultsPage.getDefaultInfoLocator()).toContainText(
+        "0"
+      );
     });
 
     await test.step("Verify that the search results container is empty", async () => {
-      await expect(searchResultsPage.getSearchResultsWrapperLocator()).toBeEmpty()
+      await expect(
+        searchResultsPage.getSearchResultsLocator()
+      ).toBeEmpty();
     });
   });
-
-
-
 });
