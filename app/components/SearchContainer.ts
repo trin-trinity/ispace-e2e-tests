@@ -38,14 +38,21 @@ export class SearchContainer {
       return text.split(/\s+/).filter(Boolean);
     });
   }
+
+  async searchForQuery(query: string) {
+    await test.step(`Search for a query: ${query}`, async () => {
+      await this.locators.searchField.fill(query);
+      await this.page.keyboard.press("Enter");
+    });
+  }
 }
 
 class SearchContainerLocators {
   searchSuggestionButton: Locator;
+  searchField: Locator;
 
   constructor(page: Page) {
-    this.searchSuggestionButton = page.locator(
-      'ul[class*="search-helper-list"] li a'
-    );
+    this.searchSuggestionButton = page.locator('ul[class*="search-helper-list"] li a');
+    this.searchField = page.locator('[type="text"][formcontrolname="searchControl"]').first()
   }
 }

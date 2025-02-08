@@ -11,7 +11,7 @@ export class HomePage extends BasePage {
     this.navigationBar = new NavigationBar(page)
   }
 
-  async navigateTo(url?: string) {
+  async navigateTo() {
     await super.navigateTo("https://ispace.ua/ua/");
   }
 }

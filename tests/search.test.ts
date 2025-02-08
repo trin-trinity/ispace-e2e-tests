@@ -1,3 +1,4 @@
+import { testData } from "../app/data/testData";
 import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
 
@@ -24,4 +25,26 @@ test.describe("Search", () => {
       );
     });
   });
+
+  test("IS-002 for a dummy string returns no results", async ({
+    homePage,
+    searchResultsPage,
+  }) => {
+    await homePage.navigationBar.clickSearchButton();
+
+    await homePage.navigationBar.searchContainer.searchForQuery(
+      testData.dummyString
+    );
+
+    await test.step("Verify that the search results count is zero", async () => {
+      await expect(searchResultsPage.getDefaultInfoLocator()).toContainText("0");
+    });
+
+    await test.step("Verify that the search results container is empty", async () => {
+      await expect(searchResultsPage.getSearchResultsWrapperLocator()).toBeEmpty()
+    });
+  });
+
+
+
 });

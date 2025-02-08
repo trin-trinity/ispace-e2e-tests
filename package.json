@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/trin-trinity/ispace-e2e-tests#readme",
   "devDependencies": {
+    "@faker-js/faker": "^9.4.0",
     "@playwright/test": "^1.50.1",
     "@types/node": "^22.13.1"
   }
