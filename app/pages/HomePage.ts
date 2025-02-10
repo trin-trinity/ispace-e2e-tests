@@ -15,13 +15,6 @@ export class HomePage extends BasePage {
     await super.navigateTo("https://ispace.ua/ua/");
   }
 
-  private async selectSearchSuggestion(suggestion: string) {
-    await this.navigationBar.search
-      .getSuggestionLocator()
-      .getByText(suggestion, { exact: true })
-      .click();
-  }
-
   private async getRandomSuggestion(): Promise<string> {
     const suggestions: string[] = [];
 
@@ -46,16 +39,11 @@ export class HomePage extends BasePage {
   async selectRandomSearchSuggestion(): Promise<string> {
     const randomSuggestion = await this.getRandomSuggestion();
 
-    await this.selectSearchSuggestion(randomSuggestion);
+    await this.navigationBar.search.selectSearchSuggestion(randomSuggestion);
     return randomSuggestion
   }
 
   extractWords(text: string): string[] {
     return text.split(/\s+/).filter(Boolean);
-  }
-
-  async searchForQuery(query: string) {
-    await this.navigationBar.search.getSearchFieldLocator().fill(query);
-    await this.page.keyboard.press("Enter");
   }
 }

@@ -41,7 +41,7 @@ test.describe("Search", () => {
     });
 
     await test.step(`Search for a query: ${testData.dummyString}`, async () => {
-      await homePage.searchForQuery(testData.dummyString);
+      await homePage.navigationBar.search.searchForQuery(testData.dummyString);
     });
 
     await test.step("Verify that the search results count is zero", async () => {
