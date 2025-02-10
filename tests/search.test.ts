@@ -6,7 +6,6 @@ test.describe("Search", () => {
   test("IS-001 suggestion click opens the correct results page", async ({
     homePage,
     searchResultsPage,
-    page,
   }) => {
     await test.step("Click on search bar", async () => {
       await homePage.navigationBar.clickSearchButton();
