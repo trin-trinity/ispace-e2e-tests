@@ -15,4 +15,8 @@ export class SearchResultsPage extends BasePage {
   getDefaultInfoLocator = () => this.locators.defaultInfo;
   getSearchResultsLocator = () => this.locators.searchResults;
   getHeaderText = async () => await this.locators.header.textContent();
+  
+  async waitForLoadState(): Promise<void> {
+    super.waitForLoadState()
+  }
 }

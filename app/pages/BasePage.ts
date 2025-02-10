@@ -12,4 +12,8 @@ export class BasePage {
     
     await this.page.goto(url);
   }
+
+  protected async waitForLoadState() {
+    await this.page.waitForLoadState();
+  }
 }

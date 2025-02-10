@@ -6,6 +6,7 @@ test.describe("Search", () => {
   test("IS-001 suggestion click opens the correct results page", async ({
     homePage,
     searchResultsPage,
+    page,
   }) => {
     await test.step("Click on search bar", async () => {
       await homePage.navigationBar.clickSearchButton();
@@ -22,6 +23,8 @@ test.describe("Search", () => {
       });
 
     await test.step("Verify that search results header contains suggestion keywords", async () => {
+     
+      await searchResultsPage.waitForLoadState()
       await Promise.all(
         keywords.map(async (word) => {
           await expect(searchResultsPage.getHeaderLocator()).toContainText(
