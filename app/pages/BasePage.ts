@@ -14,6 +14,6 @@ export class BasePage {
   }
 
   protected async waitForLoadState() {
-    await this.page.waitForLoadState();
+    await this.page.waitForLoadState("domcontentloaded");
   }
 }
