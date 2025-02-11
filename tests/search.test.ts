@@ -1,3 +1,4 @@
+import { get } from "http";
 import { testData } from "../app/data/testData";
 import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
@@ -22,8 +23,7 @@ test.describe("Search", () => {
       });
 
     await test.step("Verify that search results header contains suggestion keywords", async () => {
-     
-      await searchResultsPage.waitForLoadState()
+      await searchResultsPage.waitForLocatorToBeVisible(searchResultsPage.getHeaderLocator());
       await Promise.all(
         keywords.map(async (word) => {
           await expect(searchResultsPage.getHeaderLocator()).toContainText(
@@ -46,16 +46,39 @@ test.describe("Search", () => {
       await homePage.navigationBar.search.searchForQuery(testData.dummyString);
     });
 
-    await test.step("Verify that the search results count is zero", async () => {
+    await test.step("Verify that search results count is zero", async () => {
       await expect(searchResultsPage.getDefaultInfoLocator()).toContainText(
         "0"
       );
     });
 
-    await test.step("Verify that the search results container is empty", async () => {
-      await expect(
-        searchResultsPage.getSearchResultsLocator()
-      ).toBeEmpty();
+    await test.step("Verify that search results are empty", async () => {
+      await expect(searchResultsPage.getSearchResultsLocator()).toBeEmpty();
     });
   });
+
+  for (const product of testData.products) {
+    test(`IS-003 categories product names include the searched product keyword: ${product}`, async ({
+      homePage,
+      searchResultsPage,
+    }) => {
+      await test.step("Click on search bar", async () => {
+        await homePage.navigationBar.clickSearchButton();
+      });
+
+      await test.step(`Search for a query: ${product}`, async () => {
+        await homePage.navigationBar.search.searchForQuery(product);
+      });
+
+      await test.step(`Verify that products in categories contain ${product} keyword`, async () => {
+        await searchResultsPage.waitForLocatorToBeVisible(searchResultsPage.getProductLocator().first())
+          
+        const products = await searchResultsPage.getProductLocator().all();
+        
+        for (const item of products) {
+          await expect(item).toContainText(product, {ignoreCase: true})
+        }
+      });
+    });
+  }
 });

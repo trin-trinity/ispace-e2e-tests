@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { SearchResultsPageLocators } from "./SearchResultsPageLocators";
 
@@ -14,9 +14,9 @@ export class SearchResultsPage extends BasePage {
   getHeaderLocator = () => this.locators.header;
   getDefaultInfoLocator = () => this.locators.defaultInfo;
   getSearchResultsLocator = () => this.locators.searchResults;
-  getHeaderText = async () => await this.locators.header.textContent();
+  getProductLocator = () => this.locators.product
   
-  async waitForLoadState(): Promise<void> {
-    super.waitForLoadState()
+  async waitForLocatorToBeVisible(locator: Locator) {
+    await super.waitForLocatorToBeVisible(locator);
   }
 }

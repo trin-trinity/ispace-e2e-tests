@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class BasePage {
   protected page: Page;
@@ -9,11 +9,14 @@ export class BasePage {
 
   protected async navigateTo(url?: string) {
     url = url || "/";
-    
+
     await this.page.goto(url);
   }
 
-  protected async waitForLoadState() {
-    await this.page.waitForLoadState("domcontentloaded");
+  protected async waitForLocatorToBeVisible(
+    locator: Locator,
+    timeout: number = 5000
+  ) {
+    await locator.waitFor({ state: "visible", timeout: timeout });
   }
 }
