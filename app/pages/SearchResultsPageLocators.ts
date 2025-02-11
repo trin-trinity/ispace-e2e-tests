@@ -9,7 +9,7 @@ export class SearchResultsPageLocators {
   product: Locator;
 
   constructor(page: Page) {
-    this.header = page.locator("h1");
+    this.header = page.locator("h1#page-header");
     this.defaultInfo = page.locator("p.default-info");
     this.searchResults = page.locator(".search-wrapper .search-result-wrapper");
     this.productCategoriesTitle = page
