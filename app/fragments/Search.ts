@@ -1,4 +1,4 @@
-import test, { Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { SearchLocators } from "./SearchLocators";
 
 export class Search {

@@ -1,4 +1,3 @@
-import { get } from "http";
 import { testData } from "../app/data/testData";
 import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
