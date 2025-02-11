@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 
 export class SearchResultsPageLocators {
-  header: Locator;
+  breadcrumb: Locator;
   defaultInfo: Locator;
   searchResults: Locator;
   searchResultsListItem: Locator;
@@ -9,7 +9,7 @@ export class SearchResultsPageLocators {
   product: Locator;
 
   constructor(page: Page) {
-    this.header = page.locator("h1#page-header");
+    this.breadcrumb = page.locator(".breadcrumb>.active");
     this.defaultInfo = page.locator("p.default-info");
     this.searchResults = page.locator(".search-wrapper .search-result-wrapper");
     this.productCategoriesTitle = page

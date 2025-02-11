@@ -11,7 +11,7 @@ export class SearchResultsPage extends BasePage {
     this.locators = new SearchResultsPageLocators(this.page);
   }
 
-  getHeaderLocator = () => this.locators.header;
+  getBreadCrumbLocator = () => this.locators.breadcrumb;
   getDefaultInfoLocator = () => this.locators.defaultInfo;
   getSearchResultsLocator = () => this.locators.searchResults;
   getProductLocator = () => this.locators.product

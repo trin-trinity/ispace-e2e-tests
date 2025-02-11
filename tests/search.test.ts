@@ -21,16 +21,16 @@ test.describe("Search", () => {
         return homePage.extractWords(randomSuggestion);
       });
 
-    await test.step("Wait for header to be visible", async () => {
+    await test.step("Wait for breadcrumb element to be visible", async () => {
       await searchResultsPage.waitForLocatorToBeVisible(
-        searchResultsPage.getHeaderLocator()
+        searchResultsPage.getBreadCrumbLocator()
       );
     });
 
-    await test.step("Verify that search results header contains suggestion keywords", async () => {
+    await test.step("Verify that active breadcrumb element contains suggestion keywords", async () => {
       await Promise.all(
         keywords.map(async (word) => {
-          await expect(searchResultsPage.getHeaderLocator()).toContainText(
+          await expect(searchResultsPage.getBreadCrumbLocator()).toContainText(
             word
           );
         })
