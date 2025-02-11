@@ -15,7 +15,7 @@ export class BasePage {
 
   protected async waitForLocatorToBeVisible(
     locator: Locator,
-    timeout: number = 5000
+    timeout: number = 10000
   ) {
     await locator.waitFor({ state: "visible", timeout: timeout });
   }

@@ -16,7 +16,7 @@ export class SearchResultsPage extends BasePage {
   getSearchResultsLocator = () => this.locators.searchResults;
   getProductLocator = () => this.locators.product
   
-  async waitForLocatorToBeVisible(locator: Locator) {
-    await super.waitForLocatorToBeVisible(locator);
+  async waitForLocatorToBeVisible(locator: Locator, timeout?: number) {
+    await super.waitForLocatorToBeVisible(locator, timeout);
   }
 }

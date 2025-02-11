@@ -22,8 +22,13 @@ test.describe("Search", () => {
         return homePage.extractWords(randomSuggestion);
       });
 
+    await test.step("Wait for header to be visible", async () => {
+      await searchResultsPage.waitForLocatorToBeVisible(
+        searchResultsPage.getHeaderLocator()
+      );
+    });
+
     await test.step("Verify that search results header contains suggestion keywords", async () => {
-      await searchResultsPage.waitForLocatorToBeVisible(searchResultsPage.getHeaderLocator());
       await Promise.all(
         keywords.map(async (word) => {
           await expect(searchResultsPage.getHeaderLocator()).toContainText(
@@ -70,13 +75,17 @@ test.describe("Search", () => {
         await homePage.navigationBar.search.searchForQuery(product);
       });
 
+      await test.step("Wait for product to be visible", async () => {
+        await searchResultsPage.waitForLocatorToBeVisible(
+          searchResultsPage.getProductLocator().first()
+        );
+      });
+
       await test.step(`Verify that products in categories contain ${product} keyword`, async () => {
-        await searchResultsPage.waitForLocatorToBeVisible(searchResultsPage.getProductLocator().first())
-          
         const products = await searchResultsPage.getProductLocator().all();
-        
+
         for (const item of products) {
-          await expect(item).toContainText(product, {ignoreCase: true})
+          await expect(item).toContainText(product, { ignoreCase: true });
         }
       });
     });
