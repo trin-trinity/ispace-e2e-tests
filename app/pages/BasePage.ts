@@ -19,4 +19,11 @@ export class BasePage {
   ) {
     await locator.waitFor({ state: "visible", timeout: timeout });
   }
+
+  protected async waitForLoadState(
+    state: "domcontentloaded" | "load" | "networkidle",
+    timeout: number = 10000
+  ) {
+    await this.page.waitForLoadState(state, { timeout });
+  }
 }

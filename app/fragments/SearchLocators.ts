@@ -1,8 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 
 export class SearchLocators {
-  searchSuggestionButton: Locator;
-  searchField: Locator;
+  readonly searchSuggestionButton: Locator;
+  readonly searchField: Locator;
 
   constructor(page: Page) {
     this.searchSuggestionButton = page.locator(

@@ -1,10 +1,12 @@
 import { test as base } from "@playwright/test";
 import { HomePage } from "../../app/pages/HomePage";
 import { SearchResultsPage } from "../../app/pages/SearchResultsPage";
+import { CatalogPage } from "../../app/pages/CatalogPage";
 
 type Pages = {
   homePage: HomePage;
   searchResultsPage: SearchResultsPage;
+  catalogPage: CatalogPage;
 };
 
 export const test = base.extend<Pages>({
@@ -17,5 +19,12 @@ export const test = base.extend<Pages>({
 
   searchResultsPage: async ({ page }, use) => {
     await use(new SearchResultsPage(page));
+  },
+
+  catalogPage: async ({ page }, use) => {
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.navigateTo('https://ispace.ua/ua/iphone/iphone-16-pro');
+  
+    await use(catalogPage);
   },
 });

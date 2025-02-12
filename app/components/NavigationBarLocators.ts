@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 
 export class NavigationBarLocators {
-  searchButton: Locator;
+  readonly searchButton: Locator;
 
   constructor(page: Page) {
     this.searchButton = page

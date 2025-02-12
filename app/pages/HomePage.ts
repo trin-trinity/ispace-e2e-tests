@@ -15,7 +15,7 @@ export class HomePage extends BasePage {
     await super.navigateTo("https://ispace.ua/ua/");
   }
 
-  private async getRandomSuggestion(): Promise<string> {
+  private async getRandomSuggestion() {
     const suggestions: string[] = [];
 
     const searchSuggestions = await this.navigationBar.search
@@ -36,7 +36,7 @@ export class HomePage extends BasePage {
     return randomSuggestion;
   }
 
-  async selectRandomSearchSuggestion(): Promise<string> {
+  async selectRandomSearchSuggestion() {
     const randomSuggestion = await this.getRandomSuggestion();
 
     await this.navigationBar.search.selectSearchSuggestion(randomSuggestion);
