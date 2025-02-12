@@ -3,41 +3,38 @@ import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
 
 test.describe("Filter", () => {
-  test("IS-004 products by internal memory size", async({ catalogPage, page }) => {
-   
-    const response1 = page.waitForResponse(
-      "https://ispace.ua/ua/api/2Rpx2WuW7fQlSXR/11"
-    );
-    await response1;
-    
+  test("IS-004 products by memory size", async ({ catalogPage, page }) => {
+    await test.step("Click on filter sidebar", async () => {
+      await catalogPage.showFilterSidebar();
+    });
 
-    await catalogPage.showFiltersSidebar();
-    
-    // await catalogPage.waitForLocatorToBeVisible(
-    //   catalogPage.filter.getMemorySizeLabel().first()
-    // );
+    await test.step("Wait for memory size section element to be visible", async () => {
+      await catalogPage.waitMemorySizeSectionToBeVisible();
+    });
 
-    await catalogPage.waitForLocatorToBeVisible(
-      catalogPage.filter.getShowAllButtonLocator(catalogPage.filter.getMemorySizeSection())
-    );
+    await test.step("Expand all filter values", async () => {
+      await catalogPage.filter.memorySizeSection.clickShowAllButton();
+    });
 
-    await catalogPage.filter.clickShowAllButton(catalogPage.filter.getMemorySizeSection())
+    const selectedFilter =
+      await test.step("Select random filter in memory size section", async () => {
+        return await catalogPage.selectRandomMemorySizeFilter();
+      });
 
-    const selectedFilter = await catalogPage.selectRandomMemorySizeFilter();
-    /// wait for request
+    await test.step("Wait for page to be filtered", async () => {
+      await catalogPage.waitForResponse();
+    });
 
-    const response2 = page.waitForResponse(
-      "https://ispace.ua/ua/api/2Rpx2WuW7fQlSXR/11"
-    );
-    await response2
+    await test.step("Click on Show button", async () => {
+      await catalogPage.filter.clickShowButton();
+    });
 
+    await test.step(`Verify that all filtered items contain selected filetr: ${selectedFilter} keyword`, async () => {
+      const items = await catalogPage.productItem.getAllItemNames();
 
-    await catalogPage.filter.clickShowButton();
-
-    const items = await catalogPage.productItem.getAllItemNames()
-
-    for (const item of items) {
-      expect(item).toContain(selectedFilter)
-    }
+      for (const item of items) {
+        expect(item).toContain(selectedFilter);
+      }
+    });
   });
 });

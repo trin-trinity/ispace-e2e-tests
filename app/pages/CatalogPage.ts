@@ -3,6 +3,7 @@ import { BasePage } from "./BasePage";
 import { Filter } from "../components/Filter";
 import { CatalogPageLocators } from "./CatalogPageLocators";
 import { ProductItem } from "../components/ProductItem";
+import { RandomSelector } from "../core/RandomSelector";
 
 export class CatalogPage extends BasePage {
   private locators: CatalogPageLocators;
@@ -21,37 +22,22 @@ export class CatalogPage extends BasePage {
     await super.navigateTo(url);
   }
 
-  async waitForLocatorToBeVisible(locator: Locator, timeout?: number) {
-    await super.waitForLocatorToBeVisible(locator, timeout);
+  async waitMemorySizeSectionToBeVisible() {
+    const section = this.filter.memorySizeSection.getSectionLocator();
+    await super.waitForLocatorToBeVisible(section);
   }
 
-  getFiltersSidebarLocator = () => this.locators.showFiltersButton;
-
-  showFiltersSidebar = async () => await this.locators.showFiltersButton.click();
-
-  private async getRandomMemorySizeFilter() {
-    const filters: string[] = [];
-
-    const memorySizeFilters = await this.filter.getAllMemorySizeLabels();
-
-    for (const filter of memorySizeFilters) {
-      const text = await filter.textContent();
-
-      if (text !== null) {
-        filters.push(text.trim());
-      }
-    }
-
-    const i = Math.floor(Math.random() * filters.length);
-    const randomFilter = filters[i];
-
-    return randomFilter;
+  async waitForResponse() {
+    await super.waitForResponse("https://ispace.ua/ua/api/2Rpx2WuW7fQlSXR/11");
   }
+
+  showFilterSidebar = async () => await this.locators.showFiltersButton.click();
 
   async selectRandomMemorySizeFilter() {
-    const randomFilter = await this.getRandomMemorySizeFilter();
+    const allLabels = await this.filter.memorySizeSection.getAllFilterLabels();
+    const randomFilter = await RandomSelector.getRandomText(allLabels);
 
-    await this.filter.selectMemorySizeFilter(randomFilter);
+    await this.filter.memorySizeSection.selectFilter(randomFilter);
     return randomFilter;
   }
 }

@@ -14,9 +14,8 @@ export class SearchResultsPage extends BasePage {
   getBreadCrumbLocator = () => this.locators.breadcrumb;
   getDefaultInfoLocator = () => this.locators.defaultInfo;
   getSearchResultsLocator = () => this.locators.searchResults;
-  getProductLocator = () => this.locators.product
-  
-  async waitForLocatorToBeVisible(locator: Locator, timeout?: number) {
-    await super.waitForLocatorToBeVisible(locator, timeout);
-  }
+  getProductLocator = () => this.locators.product;
+
+  waitBreadCrumbLocatorToBeVisible = async () => await super.waitForLocatorToBeVisible(this.getBreadCrumbLocator());
+  waitProductLocatorToBeVisible = async () => await super.waitForLocatorToBeVisible(this.getProductLocator().first());
 }

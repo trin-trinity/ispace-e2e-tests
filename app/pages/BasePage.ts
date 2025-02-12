@@ -1,3 +1,4 @@
+import { ur } from "@faker-js/faker";
 import { Locator, Page } from "@playwright/test";
 
 export class BasePage {
@@ -25,5 +26,9 @@ export class BasePage {
     timeout: number = 10000
   ) {
     await this.page.waitForLoadState(state, { timeout });
+  }
+
+  protected async waitForResponse(url: string) {
+    await this.page.waitForResponse(url);
   }
 }

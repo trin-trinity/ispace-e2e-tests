@@ -22,9 +22,7 @@ test.describe("Search", () => {
       });
 
     await test.step("Wait for breadcrumb element to be visible", async () => {
-      await searchResultsPage.waitForLocatorToBeVisible(
-        searchResultsPage.getBreadCrumbLocator()
-      );
+      await searchResultsPage.waitBreadCrumbLocatorToBeVisible();
     });
 
     await test.step("Verify that active breadcrumb element contains suggestion keywords", async () => {
@@ -75,9 +73,7 @@ test.describe("Search", () => {
       });
 
       await test.step("Wait for product to be visible", async () => {
-        await searchResultsPage.waitForLocatorToBeVisible(
-          searchResultsPage.getProductLocator().first()
-        );
+        await searchResultsPage.waitProductLocatorToBeVisible();
       });
 
       await test.step(`Verify that products in categories contain ${product} keyword`, async () => {

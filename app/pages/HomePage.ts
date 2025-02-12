@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { NavigationBar } from "../components/NavigationBar";
+import { RandomSelector } from "../core/RandomSelector";
 
 export class HomePage extends BasePage {
   navigationBar: NavigationBar;
@@ -15,29 +16,9 @@ export class HomePage extends BasePage {
     await super.navigateTo("https://ispace.ua/ua/");
   }
 
-  private async getRandomSuggestion() {
-    const suggestions: string[] = [];
-
-    const searchSuggestions = await this.navigationBar.search
-      .getSuggestionLocator()
-      .all();
-
-    for (const suggestion of searchSuggestions) {
-      const text = await suggestion.textContent();
-      
-      if (text !== null) {
-        suggestions.push(text);
-      }
-    }
-
-    const i = Math.floor(Math.random() * suggestions.length);
-    const randomSuggestion = suggestions[i];
-
-    return randomSuggestion;
-  }
-
   async selectRandomSearchSuggestion() {
-    const randomSuggestion = await this.getRandomSuggestion();
+    const allSuggestions = await this.navigationBar.search.getSuggestionLocator().all()
+    const randomSuggestion = await RandomSelector.getRandomText(allSuggestions)
 
     await this.navigationBar.search.selectSearchSuggestion(randomSuggestion);
     return randomSuggestion

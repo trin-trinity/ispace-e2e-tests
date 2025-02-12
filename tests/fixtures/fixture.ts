@@ -23,8 +23,10 @@ export const test = base.extend<Pages>({
 
   catalogPage: async ({ page }, use) => {
     const catalogPage = new CatalogPage(page);
-    await catalogPage.navigateTo('https://ispace.ua/ua/iphone/iphone-16-pro');
-  
+    await catalogPage.navigateTo("https://ispace.ua/ua/iphone/iphone-16-pro");
+
+    await catalogPage.waitForResponse();
+
     await use(catalogPage);
   },
 });
