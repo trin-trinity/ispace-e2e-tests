@@ -29,7 +29,7 @@ test.describe("Filter", () => {
       await catalogPage.filter.clickShowButton();
     });
 
-    await test.step(`Verify that all filtered items contain selected filetr: ${selectedFilter} keyword`, async () => {
+    await test.step(`Verify that all filtered items contain selected filter: ${selectedFilter} keyword`, async () => {
       const items = await catalogPage.productItem.getAllItemNames();
 
       for (const item of items) {
