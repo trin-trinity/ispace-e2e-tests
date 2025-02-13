@@ -29,7 +29,7 @@ export class CatalogPage extends BasePage {
   }
 
   async showFilterSidebar() {
-    return await this.locators.showFiltersButton.click();
+    return this.locators.showFiltersButton.click();
   }
 
   async selectRandomMemorySizeFilter() {
@@ -38,5 +38,9 @@ export class CatalogPage extends BasePage {
 
     await this.filter.memorySizeSection.selectFilter(randomFilter);
     return randomFilter;
+  }
+
+  async selectSaleFilter() {
+    await this.filter.priceSection.selectFilter("акції");
   }
 }

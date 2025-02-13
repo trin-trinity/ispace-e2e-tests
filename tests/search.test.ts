@@ -1,4 +1,4 @@
-import { testData } from "../app/data/testData";
+import { testData } from "../data/testData";
 import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
 

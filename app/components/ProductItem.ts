@@ -29,4 +29,12 @@ export class ProductItem {
 
     return itemNames;
   }
+
+  async getAllSaleIcons() {
+    return this.locators.saleIcons.all();
+  }
+
+  getSaleIconLocator() {
+    return this.locators.saleIcon;
+  }
 }

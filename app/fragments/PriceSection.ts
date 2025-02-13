@@ -1,21 +1,18 @@
-import { Page } from "@playwright/test";
-import { MemorySizeLocators } from "./MemorySizeLocators";
+import { expect, Page } from "@playwright/test";
 import { FilterLocators } from "../components/FilterLocators";
+import { PriceLocators } from "./PriceLocators";
 
-export class MemorySizeSection {
+export class PriceSection {
   private page: Page;
-  private locators: MemorySizeLocators;
+  private locators: PriceLocators;
   private filterLocators: FilterLocators;
 
   constructor(page: Page) {
     this.page = page;
-    this.locators = new MemorySizeLocators(page);
+    this.locators = new PriceLocators(page);
     this.filterLocators = new FilterLocators(page);
   }
-  // прибрати метод якщо ніде не використаю
-  getSectionLocator() {
-    return this.locators.section;
-  }
+
   private getFilterLabel() {
     return this.locators.section.locator(this.filterLocators.checkboxLabel);
   }
@@ -33,12 +30,6 @@ export class MemorySizeSection {
 
   async selectFilter(labelText: string) {
     await this.getFilterCheckbox(labelText).click();
-  }
-
-  async clickShowAllButton() {
-    await this.locators.section
-      .locator(this.filterLocators.showAllButton)
-      .click();
   }
 
   async waitSectionToBeVisible() {

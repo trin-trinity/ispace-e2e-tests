@@ -2,7 +2,7 @@ import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
 
 test.describe("Filter", () => {
-  test("IS-004 products by memory size", async ({ catalogPage, page }) => {
+  test("IS-004 products by memory size", async ({ catalogPage }) => {
     await test.step("Click on filter sidebar", async () => {
       await catalogPage.showFilterSidebar();
     });
@@ -33,6 +33,33 @@ test.describe("Filter", () => {
 
       for (const item of items) {
         expect(item).toContain(selectedFilter);
+      }
+    });
+  });
+
+  test("IS-005 products by sale", async ({ catalogPage }) => {
+    await test.step("Click on filter sidebar", async () => {
+      await catalogPage.showFilterSidebar();
+    });
+    
+    await test.step("Click on the 'Sale' filter", async () => {
+      await catalogPage.selectSaleFilter();
+    });
+
+    await test.step("Wait for page to be filtered", async () => {
+      await catalogPage.waitForProductDataResponse();
+    });
+
+    await test.step("Click on Show button", async () => {
+      await catalogPage.filter.clickShowButton();
+    });
+
+    await test.step("Verify that all filtered items contain sale label", async () => {
+      const saleIcons = await catalogPage.productItem.getAllSaleIcons();
+      const saleIcon = catalogPage.productItem.getSaleIconLocator();
+
+      for (const item of saleIcons) {
+        await expect(item.locator(saleIcon)).toBeVisible();
       }
     });
   });
