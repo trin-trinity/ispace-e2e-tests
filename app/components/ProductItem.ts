@@ -11,21 +11,22 @@ export class ProductItem {
     this.locators = new ProductItemLocators(page);
   }
 
-  getItemNameLocator = () => this.locators.itemName;
-  
+  private getItemNameLocator() {
+    return this.locators.itemName;
+  }
+
   async getAllItemNames() {
     const locators = await this.getItemNameLocator().all();
 
-    const itemNames: string[] = []
+    const itemNames: string[] = [];
 
     for (const locator of locators) {
-      const itemName = await locator.textContent()
+      const itemName = await locator.textContent();
       if (itemName !== null) {
         itemNames.push(itemName);
       }
     }
 
-    return itemNames
-  } 
-
+    return itemNames;
+  }
 }

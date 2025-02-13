@@ -11,11 +11,26 @@ export class SearchResultsPage extends BasePage {
     this.locators = new SearchResultsPageLocators(this.page);
   }
 
-  getBreadCrumbLocator = () => this.locators.breadcrumb;
-  getDefaultInfoLocator = () => this.locators.defaultInfo;
-  getSearchResultsLocator = () => this.locators.searchResults;
-  getProductLocator = () => this.locators.product;
+  getBreadCrumbLocator() {
+    return this.locators.breadcrumb;
+  }
+  getDefaultInfoLocator() {
+    return this.locators.defaultInfo;
+  }
+  getSearchResultsLocator() {
+    return this.locators.searchResults;
+  }
+  getProductLocator() {
+    return this.locators.product;
+  }
 
-  waitBreadCrumbLocatorToBeVisible = async () => await super.waitForLocatorToBeVisible(this.getBreadCrumbLocator());
-  waitProductLocatorToBeVisible = async () => await super.waitForLocatorToBeVisible(this.getProductLocator().first());
+  async waitBreadCrumbLocatorToBeVisible() {
+    const locator = this.getBreadCrumbLocator();
+    await locator.waitFor({ state: "visible", timeout: 10000 });
+  }
+
+  async waitProductLocatorToBeVisible() {
+    const locator = this.getProductLocator().first();
+    await locator.waitFor({ state: "visible", timeout: 10000 });
+  }
 }

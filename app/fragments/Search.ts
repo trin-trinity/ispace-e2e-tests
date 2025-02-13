@@ -10,7 +10,9 @@ export class Search {
     this.locators = new SearchLocators(page);
   }
 
-  getSuggestionLocator = () => this.locators.searchSuggestionButton;
+  getSuggestionLocator() {
+    return this.locators.searchSuggestionButton;
+  }
 
   async selectSearchSuggestion(suggestion: string) {
     await this.locators.searchSuggestionButton

@@ -12,9 +12,13 @@ export class MemorySizeSection {
     this.locators = new MemorySizeLocators(page);
     this.filterLocators = new FilterLocators(page);
   }
-
-  getSectionLocator = () => this.locators.section;
-  getFilterLabel = () => this.locators.section.locator(this.filterLocators.checkboxLabel);
+  // прибрати метод якщо ніде не використаю
+  getSectionLocator() {
+    return this.locators.section;
+  }
+  private getFilterLabel() {
+    return this.locators.section.locator(this.filterLocators.checkboxLabel);
+  }
 
   getFilterCheckbox(labelText: string) {
     return this.locators.section
@@ -23,8 +27,22 @@ export class MemorySizeSection {
       .locator(this.filterLocators.checkbox);
   }
 
-  getAllFilterLabels = async () => await this.getFilterLabel().all();
+  async getAllFilterLabels() {
+    return await this.getFilterLabel().all();
+  }
 
-  selectFilter = async (labelText: string) => await this.getFilterCheckbox(labelText).click();
-  clickShowAllButton = async () => await this.locators.section.locator(this.filterLocators.showAllButton).click();
+  async selectFilter(labelText: string) {
+    await this.getFilterCheckbox(labelText).click();
+  }
+
+  async clickShowAllButton() {
+    await this.locators.section
+      .locator(this.filterLocators.showAllButton)
+      .click();
+  }
+
+  async waitSectionToBeVisible() {
+    const section = this.locators.section;
+    await section.waitFor({ state: "visible", timeout: 10000 });
+  }
 }

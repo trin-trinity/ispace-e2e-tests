@@ -3,7 +3,7 @@ import { BasePage } from "./BasePage";
 import { Filter } from "../components/Filter";
 import { CatalogPageLocators } from "./CatalogPageLocators";
 import { ProductItem } from "../components/ProductItem";
-import { RandomSelector } from "../core/RandomSelector";
+import { RandomSelector } from "../utils/RandomSelector";
 
 export class CatalogPage extends BasePage {
   private locators: CatalogPageLocators;
@@ -22,16 +22,15 @@ export class CatalogPage extends BasePage {
     await super.navigateTo(url);
   }
 
-  async waitMemorySizeSectionToBeVisible() {
-    const section = this.filter.memorySizeSection.getSectionLocator();
-    await super.waitForLocatorToBeVisible(section);
+  async waitForProductDataResponse() {
+    await this.page.waitForResponse(
+      "https://ispace.ua/ua/api/2Rpx2WuW7fQlSXR/11"
+    );
   }
 
-  async waitForResponse() {
-    await super.waitForResponse("https://ispace.ua/ua/api/2Rpx2WuW7fQlSXR/11");
+  async showFilterSidebar() {
+    return await this.locators.showFiltersButton.click();
   }
-
-  showFilterSidebar = async () => await this.locators.showFiltersButton.click();
 
   async selectRandomMemorySizeFilter() {
     const allLabels = await this.filter.memorySizeSection.getAllFilterLabels();

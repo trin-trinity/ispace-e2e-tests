@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { FilterLocators } from "./FilterLocators";
 import { MemorySizeSection } from "../fragments/MemorySizeSection";
 
@@ -15,5 +15,7 @@ export class Filter {
     this.memorySizeSection = new MemorySizeSection(page);
   }
 
-  clickShowButton = async () => await this.locators.showButton.click();
+  async clickShowButton() {
+    await this.locators.showButton.click();
+  }
 }
