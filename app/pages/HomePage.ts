@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { NavigationBar } from "../components/NavigationBar";
-import { RandomSelector } from "../utils/RandomSelector";
+import { RandomSelector } from "../../utils/RandomSelector";
 
 export class HomePage extends BasePage {
   navigationBar: NavigationBar;
