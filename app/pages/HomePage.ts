@@ -13,7 +13,7 @@ export class HomePage extends BasePage {
   }
 
   async navigateTo() {
-    await super.navigateTo("https://ispace.ua/ua/");
+    await super.navigateTo();
   }
 
   async selectRandomSearchSuggestion() {
