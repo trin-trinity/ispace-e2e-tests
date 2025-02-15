@@ -52,6 +52,10 @@ test.describe("Filter", () => {
       await catalogPage.showFilterSidebar();
     });
 
+     await test.step("Wait for memory size section element to be visible", async () => {
+       await catalogPage.filter.priceSection.waitSectionToBeVisible();
+     });
+
     await test.step("Click on the 'Sale' filter", async () => {
       await catalogPage.selectSaleFilter();
     });
