@@ -26,7 +26,7 @@ export class SearchResultsPage extends BasePage {
 
   async waitBreadCrumbLocatorToBeVisible() {
     const locator = this.getBreadCrumbLocator();
-    await locator.waitFor({ state: "visible", timeout: 10000 });
+    await locator.waitFor({ state: "visible", timeout: 15000 });
   }
 
   async waitProductLocatorToBeVisible() {
