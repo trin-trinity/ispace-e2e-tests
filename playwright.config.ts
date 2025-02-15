@@ -8,7 +8,7 @@ export default defineConfig({
   },
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 0 : 0,
-  workers: process.env.CI ? 2 : 5,
+  workers: process.env.CI ? 3 : 5,
   reporter: "html",
   use: {
     baseURL: "https://ispace.ua/ua/",
