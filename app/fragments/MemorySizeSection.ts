@@ -12,10 +12,7 @@ export class MemorySizeSection {
     this.locators = new MemorySizeLocators(page);
     this.filterLocators = new FilterLocators(page);
   }
-  // прибрати метод якщо ніде не використаю
-  getSectionLocator() {
-    return this.locators.section;
-  }
+  
   private getFilterLabel() {
     return this.locators.section.locator(this.filterLocators.checkboxLabel);
   }
