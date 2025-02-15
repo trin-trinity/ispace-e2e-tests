@@ -7,6 +7,10 @@ test.describe("Search", () => {
     homePage,
     searchResultsPage,
   }) => {
+    await test.step("Navigate to home page", async () => {
+      await homePage.navigateTo();
+    });
+
     await test.step("Click on search bar", async () => {
       await homePage.navigationBar.clickSearchButton();
     });
@@ -40,6 +44,10 @@ test.describe("Search", () => {
     homePage,
     searchResultsPage,
   }) => {
+    await test.step("Navigate to home page", async () => {
+      await homePage.navigateTo();
+    });
+
     await test.step("Click on search bar", async () => {
       await homePage.navigationBar.clickSearchButton();
     });
@@ -64,6 +72,10 @@ test.describe("Search", () => {
       homePage,
       searchResultsPage,
     }) => {
+      await test.step("Navigate to home page", async () => {
+        await homePage.navigateTo();
+      });
+
       await test.step("Click on search bar", async () => {
         await homePage.navigationBar.clickSearchButton();
       });

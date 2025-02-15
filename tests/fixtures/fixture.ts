@@ -12,23 +12,16 @@ type Pages = {
 export const test = base.extend<Pages>({
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);
-    await homePage.navigateTo();
-
     await use(homePage);
   },
 
   searchResultsPage: async ({ page }, use) => {
     const searchResultsPage = new SearchResultsPage(page);
-    
     await use(searchResultsPage);
   },
 
   catalogPage: async ({ page }, use) => {
     const catalogPage = new CatalogPage(page);
-    await catalogPage.navigateTo("https://ispace.ua/ua/iphone/iphone-16-pro");
-
-    await catalogPage.waitForProductDataResponse();
-
     await use(catalogPage);
   },
 });

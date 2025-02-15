@@ -3,6 +3,11 @@ import { expect } from "@playwright/test";
 
 test.describe("Filter", () => {
   test("IS-004 products by memory size", async ({ catalogPage }) => {
+    await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
+      await catalogPage.navigateTo("https://ispace.ua/ua/iphone/iphone-16-pro");
+      await catalogPage.waitForProductDataResponse();
+    });
+
     await test.step("Click on filter sidebar", async () => {
       await catalogPage.showFilterSidebar();
     });
@@ -38,10 +43,15 @@ test.describe("Filter", () => {
   });
 
   test("IS-005 products by sale", async ({ catalogPage }) => {
+    await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
+      await catalogPage.navigateTo("https://ispace.ua/ua/iphone/iphone-16-pro");
+      await catalogPage.waitForProductDataResponse();
+    });
+
     await test.step("Click on filter sidebar", async () => {
       await catalogPage.showFilterSidebar();
     });
-    
+
     await test.step("Click on the 'Sale' filter", async () => {
       await catalogPage.selectSaleFilter();
     });
