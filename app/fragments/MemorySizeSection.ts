@@ -1,18 +1,19 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { MemorySizeLocators } from "./MemorySizeLocators";
 import { FilterLocators } from "../components/FilterLocators";
+import { BaseView } from "../pages/base/BaseView";
 
-export class MemorySizeSection {
-  private page: Page;
+export class MemorySizeSection extends BaseView {
   private locators: MemorySizeLocators;
   private filterLocators: FilterLocators;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page)
+    
     this.locators = new MemorySizeLocators(page);
     this.filterLocators = new FilterLocators(page);
   }
-  
+
   private getFilterLabel() {
     return this.locators.section.locator(this.filterLocators.checkboxLabel);
   }
@@ -40,6 +41,6 @@ export class MemorySizeSection {
 
   async waitSectionToBeVisible() {
     const section = this.locators.section;
-    await section.waitFor({ state: "visible", timeout: 10000 });
+    this.waitFor(section);
   }
 }

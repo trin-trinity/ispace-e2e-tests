@@ -1,11 +1,13 @@
 import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
+import { PageSuffix } from "../app/pages/PageSuffix";
 
 test.describe("Filter", () => {
   test("IS-004 products by memory size", async ({ catalogPage, baseURL }) => {
     await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
-      await catalogPage.navigateTo(baseURL + "iphone/iphone-16-pro");
-      await catalogPage.waitForProductDataResponse();
+      await catalogPage.navigateTo(
+        baseURL + PageSuffix.CatalogPage.IPHONE_16_PRO
+      );
     });
 
     await test.step("Click on filter sidebar", async () => {
@@ -44,8 +46,9 @@ test.describe("Filter", () => {
 
   test("IS-005 products by sale", async ({ catalogPage, baseURL }) => {
     await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
-      await catalogPage.navigateTo(baseURL + "iphone/iphone-16-pro");
-      await catalogPage.waitForProductDataResponse();
+      await catalogPage.navigateTo(
+        baseURL + PageSuffix.CatalogPage.IPHONE_16_PRO
+      );
     });
 
     await test.step("Click on filter sidebar", async () => {

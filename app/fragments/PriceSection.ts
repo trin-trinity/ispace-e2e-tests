@@ -1,14 +1,15 @@
 import { expect, Page } from "@playwright/test";
 import { FilterLocators } from "../components/FilterLocators";
 import { PriceLocators } from "./PriceLocators";
+import { BaseView } from "../pages/base/BaseView";
 
-export class PriceSection {
-  private page: Page;
+export class PriceSection extends BaseView {
   private locators: PriceLocators;
   private filterLocators: FilterLocators;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
+
     this.locators = new PriceLocators(page);
     this.filterLocators = new FilterLocators(page);
   }
@@ -34,6 +35,6 @@ export class PriceSection {
 
   async waitSectionToBeVisible() {
     const section = this.locators.section;
-    await section.waitFor({ state: "visible", timeout: 10000 });
+    await this.waitFor(section)
   }
 }

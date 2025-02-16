@@ -26,7 +26,7 @@ test.describe("Search", () => {
       });
 
     await test.step("Wait for breadcrumb element to be visible", async () => {
-      await searchResultsPage.waitBreadCrumbLocatorToBeVisible();
+      await searchResultsPage.waitBreadcrumbLocatorToBeVisible();
     });
 
     await test.step("Verify that active breadcrumb element contains suggestion keywords", async () => {

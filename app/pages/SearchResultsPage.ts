@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
+import { BasePage } from "./base/BasePage";
 import { SearchResultsPageLocators } from "./SearchResultsPageLocators";
 
 export class SearchResultsPage extends BasePage {
@@ -9,6 +9,10 @@ export class SearchResultsPage extends BasePage {
     super(page);
 
     this.locators = new SearchResultsPageLocators(this.page);
+  }
+
+  get identifiableElement(): Locator {
+    return this.locators.breadcrumb;
   }
 
   getBreadCrumbLocator() {
@@ -24,13 +28,12 @@ export class SearchResultsPage extends BasePage {
     return this.locators.product;
   }
 
-  async waitBreadCrumbLocatorToBeVisible() {
-    const locator = this.getBreadCrumbLocator();
-    await locator.waitFor({ state: "visible", timeout: 15000 });
+  async waitBreadcrumbLocatorToBeVisible() {
+    await this.waitFor(this.getBreadCrumbLocator());
   }
-
+ 
   async waitProductLocatorToBeVisible() {
     const locator = this.getProductLocator().first();
-    await locator.waitFor({ state: "visible", timeout: 10000 });
+    await this.waitFor(locator);
   }
 }

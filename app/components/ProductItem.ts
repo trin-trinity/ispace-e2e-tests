@@ -1,12 +1,12 @@
 import { Page } from "@playwright/test";
 import { ProductItemLocators } from "./ProductItemLocators";
+import { BaseView } from "../pages/base/BaseView";
 
-export class ProductItem {
-  private page: Page;
+export class ProductItem  extends BaseView{
   private locators: ProductItemLocators;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
 
     this.locators = new ProductItemLocators(page);
   }

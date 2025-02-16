@@ -11,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 3 : 5,
   reporter: "html",
   use: {
-    baseURL: "https://ispace.ua/ua/",
+    baseURL: "https://ispace.ua/ua",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },

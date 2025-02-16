@@ -2,7 +2,7 @@
   "name": "ispace-e2e-tests",
   "version": "1.0.0",
   "description": "This repository hosts the end-to-end  test suite for the ispace.ua store. Built with Playwright and TypeScript.",
-  "scripts": {},
+  "scripts": {}, 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trin-trinity/ispace-e2e-tests.git"
