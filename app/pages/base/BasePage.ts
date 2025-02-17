@@ -9,11 +9,7 @@ export abstract class BasePage extends BaseView {
     await this.page.goto(url);
 
     if (assertions?.waitForIdentifiableElement) {
-      await expect(this.identifiableElement).toBeVisible();
-      await expect(this.identifiableElement).not.toHaveJSProperty(
-        "naturalWidth",
-        0
-      );
+      this.waitFor(this.identifiableElement);
     }
 
     if (assertions?.waitForResponseUrl) {
