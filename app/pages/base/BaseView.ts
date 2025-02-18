@@ -8,9 +8,7 @@ export abstract class BaseView {
   }
 
   protected async waitFor(locator: Locator) {
-    await expect(locator).toBeVisible({ timeout: 10000 });
-    await expect(locator).not.toHaveJSProperty("naturalWidth", 0, {
-      timeout: 10000,
-    });
+    await expect(locator).toBeVisible();
+    await expect(locator).not.toHaveJSProperty("naturalWidth", 0);
   }
 }

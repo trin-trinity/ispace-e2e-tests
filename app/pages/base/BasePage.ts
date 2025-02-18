@@ -14,7 +14,7 @@ export abstract class BasePage extends BaseView {
     }
 
     if (assertions?.waitForIdentifiableElement) {
-      this.waitFor(this.identifiableElement);
+      await this.waitFor(this.identifiableElement)
     }
   }
 }
