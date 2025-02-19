@@ -1,10 +1,10 @@
 import { test as base } from "@playwright/test";
-import { request } from "@playwright/test";
 import { HomePage } from "../../app/pages/HomePage";
 import { SearchResultsPage } from "../../app/pages/SearchResultsPage";
 import { CatalogPage } from "../../app/pages/CatalogPage";
-import { AuthController } from "../../app/api/controllers/AuthController";
+import { getAuthToken } from "../../app/api/utils/auth";
 import path from "path";
+import fs from "fs";
 
 type Pages = {
   homePage: HomePage;
@@ -12,44 +12,32 @@ type Pages = {
   catalogPage: CatalogPage;
 };
 
-type WorkerAuthState = {
-  workerStorageState: string;
-};
+export const test = base.extend<Pages>({
+  storageState: async ({ browser, request, baseURL }, use) => {
+    const dirPath = path.resolve("tests", ".auth");
+    const fileName = path.join(dirPath, `/token.json`);
+    if (!baseURL) {
+      throw new Error("baseURL is not defined");
+    }
 
-export const test = base.extend<Pages, WorkerAuthState>({
-  storageState: async ({ workerStorageState }, use) => use(workerStorageState),
+    if (!fs.existsSync(fileName)) {
+      const context = await browser.newContext();
+      const page = await context.newPage();
 
-  workerStorageState: [
-    async ({ browser }, use) => {
-      const dirPath = path.resolve("tests", ".auth");
-      const fileName = path.join(dirPath, `/token.json`);
+      await page.goto(baseURL);
 
-      const browserContext = await browser.newContext();
-      const page = await browserContext.newPage();
-      await page.goto("https://ispace.ua/ua");
+      const token = await getAuthToken(request);
 
-      const apiContext = await request.newContext();
-
-      const authController = new AuthController(apiContext);
-      const authResponse = await authController.login({
-        login: process.env.LOGIN as string,
-        password: process.env.PASSWORD as string,
-        slug: process.env.SLUG as string,
-      });
-
-      await browserContext.addInitScript((token) => {
+      context.addInitScript((token) => {
         localStorage.setItem("auth_token", token);
-      }, authResponse.token);
+      }, token);
 
-      await page.reload();
+      await context.storageState({ path: fileName });
+      await browser.close();
+    }
 
-      await browserContext.storageState({ path: fileName });
-      await browserContext.close();
-      await apiContext.dispose();
-      await use(fileName);
-    },
-    { scope: "worker" },
-  ],
+    await use(fileName);
+  },
 
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);

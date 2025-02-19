@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator } from "@playwright/test";
 import { IPageAssertions } from "./IPageAssertions";
 import { BaseView } from "./BaseView";
 

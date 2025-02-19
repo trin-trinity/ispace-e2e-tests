@@ -15,7 +15,7 @@ test.describe("Favorites", () => {
       .getByRole("button")
       .nth(1)
       .click();
-    await page.getByRole("button", { name: "1" }).click();
+    await page.getByRole("button", { name: "1" }).first().click();
     await page.getByText("Артикул: MUWC3NF/A").click();
     await expect(page.locator("apr-catalog-list-item")).toContainText(
       "Артикул: MUWC3NF/A"
