@@ -8,3 +8,4 @@ node_modules/
 /.env
 /.DS_Store
 /tests/.session
+/tests/.DS_Store
