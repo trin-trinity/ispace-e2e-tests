@@ -6,6 +6,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /.env
-/.DS_Store
 /tests/.session
-/tests/.DS_Store
+**/.DS_Store
