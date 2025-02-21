@@ -1,4 +1,6 @@
-import { expect, Page } from "@playwright/test";
+// TODO: Зламано
+
+import { Page } from "@playwright/test";
 import { MemorySizeLocators } from "./MemorySizeLocators";
 import { FilterLocators } from "../components/FilterLocators";
 import { BaseView } from "../pages/base/BaseView";
@@ -8,8 +10,8 @@ export class MemorySizeSection extends BaseView {
   private filterLocators: FilterLocators;
 
   constructor(page: Page) {
-    super(page)
-    
+    super(page);
+
     this.locators = new MemorySizeLocators(page);
     this.filterLocators = new FilterLocators(page);
   }

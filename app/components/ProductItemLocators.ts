@@ -1,4 +1,5 @@
-import { th } from "@faker-js/faker";
+// TODO: Зламано
+
 import { Locator, Page } from "@playwright/test";
 
 export class ProductItemLocators {

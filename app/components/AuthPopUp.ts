@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { BaseView } from "../pages/base/BaseView";
 import { AuthLocators } from "./AuthLocators";
 
@@ -15,21 +15,21 @@ export class AuthPopUp extends BaseView {
   }
 
   async waitForEmailField() {
-    await super.waitFor(this.locators.gEmailField);
+    await this.waitFor(this.locators.gEmailField);
   }
 
   async waitForPassWindow() {
     await super.waitFor(this.locators.gPasswordField);
   }
   async fillEmailField(email: string) {
-    this.locators.gEmailField.fill(email);
+    await this.locators.gEmailField.fill(email);
   }
 
   async fillPassField(pass: string) {
-    this.locators.gPasswordField.fill(pass);
+    await this.locators.gPasswordField.fill(pass);
   }
 
   async clickNextButton() {
-    this.locators.gNextButton.click();
+    await this.locators.gNextButton.click();
   }
 }

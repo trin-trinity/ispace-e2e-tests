@@ -1,6 +1,6 @@
 import { Request } from "../base/Request";
-import { FavoritesResponse } from "../models/Favorites";
 
+// TODO: Зламано
 export class FavoritesController extends Request {
   async getFavoritesStatus(token: string) {
     const response = await this.request.get(

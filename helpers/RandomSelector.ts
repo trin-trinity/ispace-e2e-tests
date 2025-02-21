@@ -1,3 +1,5 @@
+// TODO: Зламано
+
 import { Locator } from "@playwright/test";
 
 export class RandomSelector {
@@ -6,7 +8,7 @@ export class RandomSelector {
 
     for (const element of elements) {
       const text = await element.textContent();
-      if (text !== null ) {
+      if (text !== null) {
         items.push(text.trim());
       }
     }

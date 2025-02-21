@@ -1,10 +1,7 @@
-import fs from "fs";
 import { APIRequestContext, chromium } from "playwright/test";
-import { isAuthTokenExpired as isTokenExpired } from "../app/api/utils/auth";
-import { Cookies } from "../app/components/Cookies";
-import { NavigationBar } from "../app/components/NavigationBar";
-import { AuthPopUp } from "../app/components/AuthPopUp";
+import { isTokenExpired } from "../app/api/utils/authUtils";
 import { HomePage } from "../app/pages/HomePage";
+import fs from "fs";
 
 export class CookiesHelper {
   private filePath: string;
@@ -36,11 +33,11 @@ export class CookiesHelper {
     return null;
   }
 
-  isTokenExistsInCookies(): boolean {
+  isTokenExistsInCookies() {
     return this.getTokenFromCookie() !== null;
   }
 
-  async isTokenValid(request: APIRequestContext): Promise<boolean> {
+  async isTokenValid(request: APIRequestContext) {
     const token = this.getTokenFromCookie();
 
     if (token === null) {
@@ -59,52 +56,28 @@ export class CookiesHelper {
 
     const context = await browser.newContext();
     const page = await context.newPage();
-    const homePage = await new HomePage(page)
 
-    const cookies = new Cookies(page);
-    const navBar = new NavigationBar(page);
-    const authPopUp = new AuthPopUp(page);
+    const homePage = new HomePage(page);
 
-    await page.goto(baseURL);
+    await homePage.navigateTo(baseURL);
+    await homePage.cookiesBar.clickAgreeButton();
 
-    await cookies.clickAgreeButton();
-    await navBar.clickUserIcon();
+    await homePage.navigationBar.clickUserIcon();
 
-    await authPopUp.clickGoogleAuth();
-    await authPopUp.waitForEmailField();
-    await authPopUp.fillEmailField(process.env.EMAIL as string);
-    await authPopUp.clickNextButton();
-    await authPopUp.waitForPassWindow();
-    await authPopUp.fillPassField(process.env.PASSWORD as string);
-    await authPopUp.clickNextButton();
+    await homePage.navigationBar.userIcon.authPopUp.clickGoogleAuth();
+    await homePage.navigationBar.userIcon.authPopUp.waitForEmailField();
+    await homePage.navigationBar.userIcon.authPopUp.fillEmailField(
+      process.env.EMAIL as string
+    );
+    await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
+    await homePage.navigationBar.userIcon.authPopUp.waitForPassWindow();
+    await homePage.navigationBar.userIcon.authPopUp.fillPassField(
+      process.env.PASSWORD as string
+    );
+    await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
 
     await page.waitForURL(baseURL);
     await page.context().storageState({ path: this.filePath });
-
-    // const agreeButton = page
-    //   .locator('[class*="cookies-container"] button')
-    //   .first();
-    // await agreeButton.click();
-
-    /// click google auth method
-    // await page
-    //   .locator(".tool-list-item > .tool-item > .icon-wrapper > svg > path")
-    //   .click();
-
-    // await page
-    //   .locator('[id="\\30 "]')
-    //   .getByRole("listitem")
-    //   .getByRole("button")
-    //   .click();
-
-    // // auth in google window
-    // await page.waitForSelector('input[type="email"]');
-    // await page.fill('input[type="email"]', process.env.EMAIL as string);
-    // await page.click("#identifierNext");
-    // await page.waitForSelector('input[type="password"]');
-    // await page.fill('input[type="password"]', process.env.PASSWORD as string);
-    // await page.waitForSelector("#passwordNext");
-    // await page.click("#passwordNext");
   }
 
   async storeCookiesState(baseURL: string) {
@@ -116,14 +89,10 @@ export class CookiesHelper {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.goto(baseURL);
-    const cookies = new Cookies(page);
-    await cookies.clickAgreeButton();
-    await page.context().storageState({ path: this.filePath });
+    const homePage = new HomePage(page);
 
-    // const agreeButton = page
-    //   .locator('[class*="cookies-container"] button')
-    //   .first();
-    // await agreeButton.click();
+    await homePage.navigateTo(baseURL);
+    await homePage.cookiesBar.clickAgreeButton();
+    await page.context().storageState({ path: this.filePath });
   }
 }

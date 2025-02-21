@@ -1,10 +1,10 @@
 import { APIRequestContext } from "@playwright/test";
 import { ProfileController } from "../controllers/ProfileController";
 
-export async function isAuthTokenExpired(
+export async function isTokenExpired(
   request: APIRequestContext,
   token: string
-) {
+): Promise<boolean> {
   const profileController = new ProfileController(request);
 
   try {

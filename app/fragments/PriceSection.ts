@@ -1,4 +1,6 @@
-import { expect, Page } from "@playwright/test";
+// TODO: Зламано
+
+import { Page } from "@playwright/test";
 import { FilterLocators } from "../components/FilterLocators";
 import { PriceLocators } from "./PriceLocators";
 import { BaseView } from "../pages/base/BaseView";
@@ -35,6 +37,6 @@ export class PriceSection extends BaseView {
 
   async waitSectionToBeVisible() {
     const section = this.locators.section;
-    await this.waitFor(section)
+    await this.waitFor(section);
   }
 }

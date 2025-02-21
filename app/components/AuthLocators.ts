@@ -7,12 +7,13 @@ export class AuthLocators {
   readonly gNextButton: Locator;
 
   constructor(page: Page) {
+    // I know, this locator is awful. But otherwise it is impossible to find it.
     this.googleAuthIcon = page
-      .locator('.v-dialog > .mx-auto')
+      .locator(".v-dialog > .mx-auto")
       .getByRole("listitem")
       .getByRole("button");
-    this.gEmailField = page.locator('[aria-label="Email or phone"]');
-    this.gPasswordField = page.locator('aria-label="Enter your password"');
+    this.gEmailField = page.locator('[type="email"]');
+    this.gPasswordField = page.locator('[type="password"]');
     this.gNextButton = page.locator("button").getByText("Next");
   }
 }

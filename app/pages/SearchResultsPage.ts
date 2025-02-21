@@ -1,3 +1,5 @@
+// TODO: Зламано
+
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
 import { SearchResultsPageLocators } from "./SearchResultsPageLocators";
@@ -31,7 +33,7 @@ export class SearchResultsPage extends BasePage {
   async waitBreadcrumbLocatorToBeVisible() {
     await this.waitFor(this.getBreadCrumbLocator());
   }
- 
+
   async waitProductLocatorToBeVisible() {
     const locator = this.getProductLocator().first();
     await this.waitFor(locator);
