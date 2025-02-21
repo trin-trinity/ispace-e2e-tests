@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
 import { NavigationBar } from "../components/NavigationBar";
-import { RandomSelector } from "../../utils/RandomSelector";
+import { RandomSelector } from "../../helpers/RandomSelector";
 import { HomePageLocators } from "./HomePageLocators";
 import { IPageAssertions } from "./base/IPageAssertions";
 

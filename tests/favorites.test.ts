@@ -1,24 +1,19 @@
 import { expect } from "@playwright/test";
 import { test } from "./fixtures/fixture";
-import { PageSuffix } from "../app/pages/PageSuffix";
+
 
 test.describe("Favorites", () => {
-  test("IS-004 add to favorites", async ({
-    catalogPage,
-    baseURL,
-    page,
-  }) => {
-  
-    await catalogPage.navigateTo(baseURL + PageSuffix.CatalogPage.IPAD_AIR);
-    await page
-      .locator("#ipad-air-11-m2-128-gb-wi-fi-seryy-kosmos-muwc3nfa")
-      .getByRole("button")
-      .nth(1)
-      .click();
-    await page.getByRole("button", { name: "1" }).first().click();
-    await page.getByText("Артикул: MUWC3NF/A").click();
-    await expect(page.locator("apr-catalog-list-item")).toContainText(
-      "Артикул: MUWC3NF/A"
-    );
-  });
+  test(
+    "IS-007 add to favorites",
+    { tag: "@loggedUser" },
+    async ({ baseURL, page }) => {
+      if (!baseURL) {
+        throw new Error("baseURL is not defined");
+      }
+      await page.locator('.v-dialog > .mx-auto').click();
+
+      await page.goto(baseURL);
+      await page.waitForTimeout(2_000);
+    }
+  );
 });

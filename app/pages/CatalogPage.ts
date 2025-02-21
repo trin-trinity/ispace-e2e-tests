@@ -3,7 +3,7 @@ import { BasePage } from "./base/BasePage";
 import { Filter } from "../components/Filter";
 import { CatalogPageLocators } from "./CatalogPageLocators";
 import { ProductItem } from "../components/ProductItem";
-import { RandomSelector } from "../../utils/RandomSelector";
+import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
 
 export class CatalogPage extends BasePage {

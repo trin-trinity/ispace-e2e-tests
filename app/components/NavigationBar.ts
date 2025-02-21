@@ -7,7 +7,6 @@ export class NavigationBar extends BaseView {
   private locators: NavigationBarLocators;
 
   search: Search;
-
   constructor(page: Page) {
     super(page);
 
@@ -17,5 +16,9 @@ export class NavigationBar extends BaseView {
 
   async clickSearchButton() {
     await this.locators.searchButton.click();
+  }
+
+  async clickUserIcon() {
+    await this.locators.userIcon.click();
   }
 }

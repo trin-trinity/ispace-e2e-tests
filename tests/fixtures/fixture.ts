@@ -2,9 +2,12 @@ import { test as base } from "@playwright/test";
 import { HomePage } from "../../app/pages/HomePage";
 import { SearchResultsPage } from "../../app/pages/SearchResultsPage";
 import { CatalogPage } from "../../app/pages/CatalogPage";
-import { getAuthToken } from "../../app/api/utils/auth";
+import { CookiesHelper } from "../../helpers/CookiesHelper";
 import path from "path";
 import fs from "fs";
+
+const dirPath = path.resolve("tests", ".session");
+const filePath = path.join(dirPath, `/state.json`);
 
 type Pages = {
   homePage: HomePage;
@@ -13,30 +16,52 @@ type Pages = {
 };
 
 export const test = base.extend<Pages>({
-  storageState: async ({ browser, request, baseURL }, use) => {
-    const dirPath = path.resolve("tests", ".auth");
-    const fileName = path.join(dirPath, `/token.json`);
+  storageState: async ({ request, baseURL }, use) => {
+    const cookiesHelper = new CookiesHelper(filePath);
+
     if (!baseURL) {
       throw new Error("baseURL is not defined");
     }
 
-    if (!fs.existsSync(fileName)) {
-      const context = await browser.newContext();
-      const page = await context.newPage();
-
-      await page.goto(baseURL);
-
-      const token = await getAuthToken(request);
-
-      context.addInitScript((token) => {
-        localStorage.setItem("auth_token", token);
-      }, token);
-
-      await context.storageState({ path: fileName });
-      await browser.close();
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
     }
 
-    await use(fileName);
+    const requiresAuth = test.info().tags.includes("@loggedUser");
+    let needAuth = false;
+    let needCookies = false;
+
+    if (fs.existsSync(filePath)) {
+      if (!requiresAuth) {
+        await use(filePath);
+        return;
+      } else {
+        if (cookiesHelper.isTokenExistsInCookies()) {
+          if (await cookiesHelper.isTokenValid(request)) {
+            await use(filePath);
+            return;
+          } else {
+            needAuth = true;
+          }
+        } else {
+          needAuth = true;
+        }
+      }
+    } else {
+      if (requiresAuth) {
+        needAuth = true;
+      } else {
+        needCookies = true;
+      }
+    }
+
+    if (needAuth) {
+      await cookiesHelper.performFullAuthFlow(baseURL);
+    } else if (needCookies) {
+      await cookiesHelper.storeCookiesState(baseURL);
+    }
+
+    await use(filePath);
   },
 
   homePage: async ({ page }, use) => {

@@ -1,14 +1,16 @@
 import { APIRequestContext } from "@playwright/test";
-import { AuthController } from "../controllers/AuthController";
+import { ProfileController } from "../controllers/ProfileController";
 
-export async function getAuthToken(request: APIRequestContext) {
-  const authController = new AuthController(request);
+export async function isAuthTokenExpired(
+  request: APIRequestContext,
+  token: string
+) {
+  const profileController = new ProfileController(request);
 
-  const authResponse = await authController.login({
-    login: process.env.LOGIN as string,
-    password: process.env.PASSWORD as string,
-    slug: process.env.SLUG as string,
-  });
-  
-  return authResponse.token;
+  try {
+    const status = await profileController.getProfileInfoStatus(token);
+    return status !== 200;
+  } catch (error) {
+    return true;
+  }
 }

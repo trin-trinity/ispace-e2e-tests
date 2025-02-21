@@ -3,12 +3,14 @@ import { expect } from "@playwright/test";
 import { PageSuffix } from "../app/pages/PageSuffix";
 
 test.describe("Filter", () => {
-  test("IS-004 products by memory size", async ({ catalogPage, baseURL }) => {
+  test("IS-004 products by memory size", async ({ catalogPage, baseURL, page }) => {
     await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
       await catalogPage.navigateTo(
         baseURL + PageSuffix.CatalogPage.IPHONE_16_PRO
       );
     });
+
+    await page.waitForTimeout(5_000)
 
     await test.step("Click on filter sidebar", async () => {
       await catalogPage.showFilterSidebar();
