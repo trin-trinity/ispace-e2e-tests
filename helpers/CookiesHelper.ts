@@ -14,22 +14,25 @@ export class CookiesHelper {
       const content = fs.readFileSync(this.filePath, "utf8");
       const state = JSON.parse(content);
 
-      if (Array.isArray(state.cookies)) {
-        const authCookie = state.cookies.find((cookie: any) => {
-          if (cookie.name !== "Auth-token") return false;
-          if (domainFilter) {
-            return cookie.domain && cookie.domain.includes(domainFilter);
-          }
-          return true;
-        });
+      if (!Array.isArray(state.cookies)) {
+        return null;
+      }
 
-        if (authCookie && authCookie.value) {
-          return decodeURIComponent(authCookie.value);
+      const authCookie = state.cookies.find((cookie: any) => {
+        if (cookie.name !== "Auth-token") return false;
+        if (domainFilter && cookie.domain) {
+          return cookie.domain.includes(domainFilter);
         }
+        return true;
+      });
+
+      if (authCookie?.value) {
+        return decodeURIComponent(authCookie.value);
       }
     } catch (error) {
-      throw new Error("Error extracting auth token:", error);
+      throw new Error(`Error extracting auth token from cookie: ${error}`);
     }
+
     return null;
   }
 
@@ -59,40 +62,47 @@ export class CookiesHelper {
 
     const homePage = new HomePage(page);
 
-    await homePage.navigateTo(baseURL);
-    await homePage.cookiesBar.clickAgreeButton();
+    try {
+      await homePage.navigateTo(baseURL);
+      await homePage.cookiesBar.clickAgreeButton();
 
-    await homePage.navigationBar.clickUserIcon();
+      await homePage.navigationBar.clickUserIcon();
+      await homePage.navigationBar.userIcon.authPopUp.clickGoogleAuth();
 
-    await homePage.navigationBar.userIcon.authPopUp.clickGoogleAuth();
-    await homePage.navigationBar.userIcon.authPopUp.waitForEmailField();
-    await homePage.navigationBar.userIcon.authPopUp.fillEmailField(
-      process.env.EMAIL as string
-    );
-    await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
-    await homePage.navigationBar.userIcon.authPopUp.waitForPassWindow();
-    await homePage.navigationBar.userIcon.authPopUp.fillPassField(
-      process.env.PASSWORD as string
-    );
-    await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
+      await homePage.navigationBar.userIcon.authPopUp.waitForEmailField();
+      await homePage.navigationBar.userIcon.authPopUp.fillEmailField(
+        process.env.EMAIL as string
+      );
+      await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
+      await homePage.navigationBar.userIcon.authPopUp.waitForPassWindow();
+      await homePage.navigationBar.userIcon.authPopUp.fillPassField(
+        process.env.PASSWORD as string
+      );
+      await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
 
-    await page.waitForURL(baseURL);
-    await page.context().storageState({ path: this.filePath });
+      await page.waitForURL(baseURL);
+      await page.context().storageState({ path: this.filePath });
+    } finally {
+      await browser.close();
+    }
   }
 
   async storeCookiesState(baseURL: string) {
     const browser = await chromium.launch({
       // TODO: remove after debug
       headless: false,
-      args: ["--disable-blink-features=AutomationControlled"],
     });
     const context = await browser.newContext();
     const page = await context.newPage();
 
     const homePage = new HomePage(page);
 
-    await homePage.navigateTo(baseURL);
-    await homePage.cookiesBar.clickAgreeButton();
-    await page.context().storageState({ path: this.filePath });
+    try {
+      await homePage.navigateTo(baseURL);
+      await homePage.cookiesBar.clickAgreeButton();
+      await page.context().storageState({ path: this.filePath });
+    } finally {
+      await browser.close();
+    }
   }
 }

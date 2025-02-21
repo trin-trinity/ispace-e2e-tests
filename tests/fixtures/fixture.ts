@@ -28,8 +28,8 @@ export const test = base.extend<Pages>({
     }
 
     const requiresAuth = test.info().tags.includes("@loggedUser");
-    let needAuth = false;
-    let needCookies = false;
+    let performAuthFlow = false;
+    let storeCookiesOnly = false;
 
     if (fs.existsSync(filePath)) {
       if (!requiresAuth) {
@@ -40,24 +40,23 @@ export const test = base.extend<Pages>({
           if (await cookiesHelper.isTokenValid(request)) {
             await use(filePath);
             return;
-          } else {
-            needAuth = true;
           }
+          performAuthFlow = true;
         } else {
-          needAuth = true;
+          performAuthFlow = true;
         }
       }
     } else {
       if (requiresAuth) {
-        needAuth = true;
+        performAuthFlow = true;
       } else {
-        needCookies = true;
+        storeCookiesOnly = true;
       }
     }
 
-    if (needAuth) {
+    if (performAuthFlow) {
       await cookiesHelper.performFullAuthFlow(baseURL);
-    } else if (needCookies) {
+    } else if (storeCookiesOnly) {
       await cookiesHelper.storeCookiesState(baseURL);
     }
 
