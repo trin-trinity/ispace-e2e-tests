@@ -1,5 +1,3 @@
-// TODO: Зламано
-
 import { Locator, Page } from "@playwright/test";
 
 export class MemorySizeLocators {
@@ -7,8 +5,10 @@ export class MemorySizeLocators {
 
   constructor(page: Page) {
     this.section = page
-      .locator("p")
+      .locator('[class*="filter-header"] [class*=text-h6]')
       .getByText("Розмір внутрішньої пам'яті")
-      .locator("xpath=./ancestor::apr-sidenav-filter-item");
+      .locator(
+        'xpath=ancestor::*[contains(@class, "filters-container")]'
+      );
   }
 }

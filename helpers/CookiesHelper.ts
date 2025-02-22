@@ -52,8 +52,6 @@ export class CookiesHelper {
 
   async performFullAuthFlow(baseURL: string) {
     const browser = await chromium.launch({
-      // TODO: remove after debug
-      headless: false,
       args: ["--disable-blink-features=AutomationControlled"],
     });
 
@@ -88,10 +86,7 @@ export class CookiesHelper {
   }
 
   async storeCookiesState(baseURL: string) {
-    const browser = await chromium.launch({
-      // TODO: remove after debug
-      headless: false,
-    });
+    const browser = await chromium.launch();
     const context = await browser.newContext();
     const page = await context.newPage();
 

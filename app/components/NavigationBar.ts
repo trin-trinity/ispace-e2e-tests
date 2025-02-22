@@ -1,5 +1,3 @@
-// TODO: Зламано
-
 import { Page } from "@playwright/test";
 import { Search } from "../fragments/Search";
 import { NavigationBarLocators } from "./NavigationBarLocators";
@@ -19,8 +17,8 @@ export class NavigationBar extends BaseView {
     this.userIcon = new UserIcon(page);
   }
 
-  async clickSearchButton() {
-    await this.locators.searchButton.click();
+  async clickSearchIcon() {
+    await this.locators.searchIcon.click();
   }
 
   async clickUserIcon() {

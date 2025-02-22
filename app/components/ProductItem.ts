@@ -3,6 +3,7 @@
 import { Page } from "@playwright/test";
 import { ProductItemLocators } from "./ProductItemLocators";
 import { BaseView } from "../pages/base/BaseView";
+import { it } from "node:test";
 
 export class ProductItem extends BaseView {
   private locators: ProductItemLocators;
@@ -13,12 +14,29 @@ export class ProductItem extends BaseView {
     this.locators = new ProductItemLocators(page);
   }
 
-  private getItemNameLocator() {
-    return this.locators.itemName;
+  private async getItemNamesLocators() {
+    const allItems = await this.locators.itemName.all()
+
+    const results = await Promise.all(
+      allItems.map(async (item) => {
+        const text = await item.textContent();
+        if (text !== null && !text.toLowerCase().includes("артикул")) {
+          return item;
+        }
+        return null;
+      })
+    );
+
+    const filteredItems = results.filter((item) => item !== null);
+    return filteredItems;
+  }
+
+  async getAllProductItems() {
+    return this.locators.item.all();
   }
 
   async getAllItemNames() {
-    const locators = await this.getItemNameLocator().all();
+    const locators = await this.getItemNamesLocators()
 
     const itemNames: string[] = [];
 
@@ -32,11 +50,11 @@ export class ProductItem extends BaseView {
     return itemNames;
   }
 
-  async getAllSaleIcons() {
-    return this.locators.saleIcons.all();
+  getSalePriceLocator() {
+    return this.locators.salePrice;
   }
 
-  getSaleIconLocator() {
-    return this.locators.saleIcon;
+  getItemLocator() {
+    return this.locators.item;
   }
 }

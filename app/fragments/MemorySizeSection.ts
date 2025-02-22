@@ -1,5 +1,3 @@
-// TODO: Зламано
-
 import { Page } from "@playwright/test";
 import { MemorySizeLocators } from "./MemorySizeLocators";
 import { FilterLocators } from "../components/FilterLocators";
@@ -17,12 +15,12 @@ export class MemorySizeSection extends BaseView {
   }
 
   private getFilterLabel() {
-    return this.locators.section.locator(this.filterLocators.checkboxLabel);
+    return this.locators.section.locator(this.filterLocators.filterLabel);
   }
 
   getFilterCheckbox(labelText: string) {
-    return this.locators.section
-      .locator(this.getFilterLabel(), { hasText: labelText })
+    return this.getFilterLabel()
+      .getByText(labelText)
       .locator("..")
       .locator(this.filterLocators.checkbox);
   }
@@ -32,17 +30,17 @@ export class MemorySizeSection extends BaseView {
   }
 
   async selectFilter(labelText: string) {
+    await this.getFilterCheckbox(labelText).scrollIntoViewIfNeeded()
     await this.getFilterCheckbox(labelText).click();
   }
 
-  async clickShowAllButton() {
+  async collapseButtonClick() {
     await this.locators.section
-      .locator(this.filterLocators.showAllButton)
+      .locator(this.filterLocators.collapseButton)
       .click();
   }
 
   async waitSectionToBeVisible() {
-    const section = this.locators.section;
-    this.waitFor(section);
+    await this.waitFor(this.locators.section);
   }
 }

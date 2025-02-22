@@ -1,15 +1,13 @@
-// TODO: Зламано
-
 import { Locator, Page } from "@playwright/test";
 
 export class ProductItemLocators {
+  readonly item: Locator;
   readonly itemName: Locator;
-  readonly saleIcons: Locator;
-  readonly saleIcon: Locator;
+  readonly salePrice: Locator;
 
   constructor(page: Page) {
-    this.itemName = page.locator(".item-name");
-    this.saleIcons = page.locator('[class="sale-icons"]');
-    this.saleIcon = page.locator(".icon-red", { hasText: "Акція" });
+    this.item = page.locator(".card-grid-container");
+    this.itemName = this.item.locator("[aria-label]");
+    this.salePrice = page.locator('[class*="price-text--sale"]');
   }
 }
