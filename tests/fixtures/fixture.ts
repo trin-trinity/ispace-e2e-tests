@@ -5,11 +5,13 @@ import { CatalogPage } from "../../app/pages/CatalogPage";
 import { StorageHelper } from "../../helpers/StorageHelper";
 import fs from "fs";
 import { FixtureHelper } from "../../helpers/FixtureHelper";
+import { FavoritePage } from "../../app/pages/FavoritePage";
 
 type Pages = {
   homePage: HomePage;
   searchResultsPage: SearchResultsPage;
   catalogPage: CatalogPage;
+  favoritesPage: FavoritePage
 };
 
 export const test = base.extend<Pages>({
@@ -57,5 +59,10 @@ export const test = base.extend<Pages>({
   catalogPage: async ({ page }, use) => {
     const catalogPage = new CatalogPage(page);
     await use(catalogPage);
+  },
+
+  favoritesPage: async ({ page }, use) => {
+    const favoritesPage = new FavoritePage(page);
+    await use(favoritesPage);
   },
 });

@@ -7,7 +7,6 @@ import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
 
 export class CatalogPage extends BasePage {
-  
   // TODO: Remove if needed
   private locators: CatalogPageLocators;
   filter: Filter;
@@ -15,7 +14,8 @@ export class CatalogPage extends BasePage {
 
   private assertions: IPageAssertions = {
     waitForIdentifiableElement: true,
-    waitForResponseUrl: "https://ispaceua.helpcrunch.com/api/v2/applications/9e4b2ad5-acd2-42cc-a179-7252dbb656ac",
+    waitForResponseUrl:
+      "https://ispaceua.helpcrunch.com/api/v2/applications/9e4b2ad5-acd2-42cc-a179-7252dbb656ac",
   };
 
   constructor(page: Page) {
@@ -31,7 +31,7 @@ export class CatalogPage extends BasePage {
   }
 
   async waitProductItemToBeVisible() {
-    await this.waitFor(this.productItem.getItemLocator().first())
+    await this.waitFor(this.productItem.getItemLocator().first());
   }
 
   async navigateTo(url?: string): Promise<void> {
@@ -41,8 +41,20 @@ export class CatalogPage extends BasePage {
   async selectRandomMemorySizeFilter() {
     const allLabels = await this.filter.memorySizeSection.getAllFilterLabels();
     const randomFilter = await RandomSelector.getRandomText(allLabels);
-    
+
     await this.filter.memorySizeSection.selectFilter(randomFilter);
     return randomFilter;
   }
+
+  // async addRandomItemToFavorites() {
+  //   const allProductItems = await this.productItem.getItemArticlesLocators();
+  //   const i = Math.floor(Math.random() * allProductItems.length);
+  //   const randomItem = allProductItems[i];
+
+  //   const article = await this.productItem.getItemArticle(randomItem);
+
+  //   await this.productItem.clickFavoritesIcon(randomItem);
+  //   console.log("selected item (article)" + article);
+  //   return article;
+  // }
 }

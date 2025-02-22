@@ -5,11 +5,7 @@ import { expect } from "@playwright/test";
 import { CatalogPage } from "../app/pages/PageSuffix";
 
 test.describe("Filter", () => {
-  test("IS-003 products by memory size", async ({
-    catalogPage,
-    baseURL,
-    page,
-  }) => {
+  test("IS-003 products by memory size", async ({ catalogPage, baseURL }) => {
     await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
       await catalogPage.navigateTo(baseURL + CatalogPage.IPHONE_16_PRO);
     });
@@ -33,7 +29,7 @@ test.describe("Filter", () => {
 
     await test.step(`Verify that all filtered items contain selected filter: ${selectedFilter} keyword`, async () => {
       const items = await catalogPage.productItem.getAllItemNames();
-      
+
       for (const item of items) {
         expect(item).toContain(selectedFilter);
       }
