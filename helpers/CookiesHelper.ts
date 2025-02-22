@@ -1,5 +1,5 @@
 import { APIRequestContext, chromium } from "playwright/test";
-import { isTokenExpired } from "../app/api/utils/authUtils";
+import { isTokenExpired } from "../app/api/utils/AuthUtils";
 import { HomePage } from "../app/pages/HomePage";
 import fs from "fs";
 
