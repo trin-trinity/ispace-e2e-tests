@@ -4,7 +4,7 @@ import { ProfileController } from "../controllers/ProfileController";
 export async function isTokenExpired(
   request: APIRequestContext,
   token: string
-): Promise<boolean> {
+) {
   const profileController = new ProfileController(request);
 
   try {

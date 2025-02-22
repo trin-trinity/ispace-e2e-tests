@@ -2,12 +2,9 @@ import { test as base } from "@playwright/test";
 import { HomePage } from "../../app/pages/HomePage";
 import { SearchResultsPage } from "../../app/pages/SearchResultsPage";
 import { CatalogPage } from "../../app/pages/CatalogPage";
-import { CookiesHelper } from "../../helpers/CookiesHelper";
-import path from "path";
+import { StorageHelper } from "../../helpers/StorageHelper";
 import fs from "fs";
-
-const dirPath = path.resolve("tests", ".session");
-const filePath = path.join(dirPath, `/state.json`);
+import { FixtureHelper } from "../../helpers/FixtureHelper";
 
 type Pages = {
   homePage: HomePage;
@@ -17,50 +14,34 @@ type Pages = {
 
 export const test = base.extend<Pages>({
   storageState: async ({ request, baseURL }, use) => {
-    const cookiesHelper = new CookiesHelper(filePath);
+    const storageHelper = new StorageHelper();
+    const fixtureHelper = new FixtureHelper();
 
     if (!baseURL) {
       throw new Error("baseURL is not defined");
     }
 
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true });
+    if (!fs.existsSync(storageHelper.dirPath)) {
+      fs.mkdirSync(storageHelper.dirPath, { recursive: true });
     }
 
     const requiresAuth = test.info().tags.includes("@loggedUser");
-    let performAuthFlow = false;
-    let storeCookiesOnly = false;
 
-    if (fs.existsSync(filePath)) {
-      if (!requiresAuth) {
-        await use(filePath);
-        return;
-      } else {
-        if (cookiesHelper.isTokenExistsInCookies()) {
-          if (await cookiesHelper.isTokenValid(request)) {
-            await use(filePath);
-            return;
-          }
-          performAuthFlow = true;
-        } else {
-          performAuthFlow = true;
+    if (requiresAuth) {
+      if (storageHelper.isTokenExistsInCookies()) {
+        if (!(await storageHelper.isTokenValid(request))) {
+          await fixtureHelper.loginWithGoogleAuth(baseURL);
         }
-      }
-    } else {
-      if (requiresAuth) {
-        performAuthFlow = true;
       } else {
-        storeCookiesOnly = true;
+        await fixtureHelper.loginWithGoogleAuth(baseURL);
       }
     }
 
-    if (performAuthFlow) {
-      await cookiesHelper.performFullAuthFlow(baseURL);
-    } else if (storeCookiesOnly) {
-      await cookiesHelper.storeCookiesState(baseURL);
+    if (!fs.existsSync(storageHelper.filePath)) {
+      await fixtureHelper.storeCookiesState(baseURL);
     }
 
-    await use(filePath);
+    await use(storageHelper.filePath);
   },
 
   homePage: async ({ page }, use) => {
