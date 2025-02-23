@@ -27,35 +27,36 @@ export const test = base.extend<Pages>({
       throw new Error("baseURL is not defined");
     }
 
-    if (!fs.existsSync(storageHelper.dirPath)) {
-      fs.mkdirSync(storageHelper.dirPath, { recursive: true });
-    }
+    try {
+      if (!fs.existsSync(storageHelper.dirPath)) {
+        fs.mkdirSync(storageHelper.dirPath, { recursive: true });
+      }
 
-    const requiresAuth = test.info().tags.includes("@loggedUser");
+      const requiresAuth = test.info().tags.includes("@loggedUser");
 
-    if (requiresAuth) {
-      if (storageHelper.isTokenExistsInCookies()) {
-        if (!(await storageHelper.isTokenValid(request))) {
+      if (requiresAuth) {
+        if (storageHelper.isTokenExistsInCookies()) {
+          if (!(await storageHelper.isTokenValid(request))) {
+            await fixtureHelper.loginWithGoogleAuth(baseURL);
+          }
+        } else {
           await fixtureHelper.loginWithGoogleAuth(baseURL);
         }
-      } else {
-        await fixtureHelper.loginWithGoogleAuth(baseURL);
       }
-    }
 
-    if (!fs.existsSync(storageHelper.filePath)) {
-      await fixtureHelper.storeCookiesState(baseURL);
-    }
+      if (!fs.existsSync(storageHelper.filePath)) {
+        await fixtureHelper.storeCookiesState(baseURL);
+      }
 
-    await use(storageHelper.filePath);
-
-    const tokenFromCookie = storageHelper.getTokenFromCookie();
-
-    if (tokenFromCookie) {
-      if (
-        await fixtureHelper.isBasketContainsProducts(request, tokenFromCookie)
-      ) {
-        await fixtureHelper.cleanUpUserCart(request, tokenFromCookie);
+      await use(storageHelper.filePath);
+    } finally {
+      const tokenFromCookie = storageHelper.getTokenFromCookie();
+      if (tokenFromCookie) {
+        if (
+          await fixtureHelper.isBasketContainsProducts(request, tokenFromCookie)
+        ) {
+          await fixtureHelper.cleanUpUserCart(request, tokenFromCookie);
+        }
       }
     }
   },

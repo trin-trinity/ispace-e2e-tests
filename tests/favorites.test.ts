@@ -21,6 +21,7 @@ test.describe("Favorites", () => {
         });
 
       await test.step("Navigate to favorites page", async () => {
+        
         await homePage.navigationBar.clickFavoritesIcon();
         await favoritesPage.waitForNavigation();
       });

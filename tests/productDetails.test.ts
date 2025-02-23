@@ -15,6 +15,7 @@ test.describe("Product details", () => {
     await test.step("Click on random item", async () => {
       const randomItem = await catalogPage.getRandomProductItem();
       await randomItem.click();
+
       await productDetailsPage.waitForNavigation();
     });
 

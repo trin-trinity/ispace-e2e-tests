@@ -1,6 +1,6 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
-import path from 'path';
+import path from "path";
 
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
@@ -25,17 +25,35 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1920, height: 1080 },
+        launchOptions: {
+          args: ["--window-size=1920,1080"],
+        },
+      },
     },
 
     {
       name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      use: {
+        ...devices["Desktop Firefox"],
+        viewport: { width: 1920, height: 1080 },
+        launchOptions: {
+          args: ["--window-size=1920,1080"],
+        },
+      },
     },
 
     {
       name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      use: {
+        ...devices["Desktop Safari"],
+        viewport: { width: 1920, height: 1080 },
+        launchOptions: {
+          args: ["--window-size=1920,1080"],
+        },
+      },
     },
   ],
 });
