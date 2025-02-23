@@ -25,7 +25,7 @@ jobs:
     - name: Run Basket Tests in Single Worker Mode
       run: npx playwright test basket.test.ts --workers=1
     - name: Run All Tests (excluding basket tests)
-      run: npx playwright test --testIgnore="**/basket.test.ts"
+      run: npx playwright test --grep-invert "@basket"
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
