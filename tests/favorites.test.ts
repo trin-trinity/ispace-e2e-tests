@@ -25,7 +25,7 @@ test.describe("Favorites", () => {
         await favoritesPage.waitForNavigation();
       });
 
-      await test.step("Verify previously added product is displayed in the Favorites page ", async () => {
+      await test.step("Verify previously added product is displayed in the Favorites page", async () => {
         const firstItem = favoritesPage.productItem.getItemLocator().first();
         const articleText = await catalogPage.productItem.getArticleText(
           firstItem
