@@ -5,6 +5,7 @@ import { CatalogPageLocators } from "./CatalogPageLocators";
 import { ProductItem } from "../components/ProductItem";
 import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
+import { th } from "@faker-js/faker";
 
 export class CatalogPage extends BasePage {
   // TODO: Remove if needed
@@ -46,15 +47,33 @@ export class CatalogPage extends BasePage {
     return randomFilter;
   }
 
-  // async addRandomItemToFavorites() {
-  //   const allProductItems = await this.productItem.getItemArticlesLocators();
-  //   const i = Math.floor(Math.random() * allProductItems.length);
-  //   const randomItem = allProductItems[i];
+  async getAllProductItemTitles() {
+    const items = this.productItem.getItemLocator().all();
+    const title = this.productItem.getTitleLocator();
 
-  //   const article = await this.productItem.getItemArticle(randomItem);
+    const titles = (await items).map((item) => {
+      return item.locator(title);
+    });
 
-  //   await this.productItem.clickFavoritesIcon(randomItem);
-  //   console.log("selected item (article)" + article);
-  //   return article;
-  // }
+    return titles;
+  }
+
+  async getAllProductSalePrices() {
+    const items = this.productItem.getItemLocator().all();
+    const salePrice = this.productItem.getSalePriceLocator();
+
+    const prices = (await items).map((item) => {
+      return item.locator(salePrice);
+    });
+
+    return prices;
+  }
+
+  async getRandomProductItem() {
+    const items = await this.productItem.getItemLocator().all();
+    const i = Math.floor(Math.random() * items.length);
+    const randomItem = items[i];
+
+    return randomItem;
+  }
 }

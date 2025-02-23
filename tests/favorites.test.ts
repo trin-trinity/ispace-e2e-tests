@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from "./fixtures/fixture";
 import { CatalogPage } from "../app/pages/PageSuffix";
+import { fi } from "@faker-js/faker";
 
 test.describe("Favorites", () => {
   test(
@@ -11,22 +12,26 @@ test.describe("Favorites", () => {
         await catalogPage.navigateTo(baseURL + CatalogPage.IPAD_AIR);
       });
 
-      const selectedItem =
+      const favoriteProductArticleText =
         await test.step("Add random product to favorites", async () => {
-          return catalogPage.addRandomItemToFavorites();
+          const randomItem = await catalogPage.getRandomProductItem();
+          await catalogPage.productItem.clickFavoritesIcon(randomItem);
+
+          return catalogPage.productItem.getArticleText(randomItem);
         });
 
       await test.step("Navigate to favorites page", async () => {
         await homePage.navigationBar.clickFavoritesIcon();
+        await favoritesPage.waitForNavigation();
       });
 
       await test.step("Verify previously added product is displayed in the Favorites page ", async () => {
         const firstItem = favoritesPage.productItem.getItemLocator().first();
-        const articleTitle = await favoritesPage.productItem.getItemArticle(firstItem);
+        const articleText = await catalogPage.productItem.getArticleText(
+          firstItem
+        );
 
-        console.log("articleTitle:" + ( articleTitle));
-        
-        await expect(articleTitle).toContain(selectedItem);
+        expect(articleText).toEqual(favoriteProductArticleText);
       });
     }
   );

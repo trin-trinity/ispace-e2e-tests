@@ -1,5 +1,3 @@
-// TODO: Зламано
-
 import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
 import { CatalogPage } from "../app/pages/PageSuffix";
@@ -28,10 +26,10 @@ test.describe("Filter", () => {
     });
 
     await test.step(`Verify that all filtered items contain selected filter: ${selectedFilter} keyword`, async () => {
-      const items = await catalogPage.productItem.getAllItemNames();
+      const items = await catalogPage.getAllProductItemTitles();
 
       for (const item of items) {
-        expect(item).toContain(selectedFilter);
+        expect(item).toContainText(selectedFilter);
       }
     });
   });
@@ -54,11 +52,10 @@ test.describe("Filter", () => {
     });
 
     await test.step("Verify that all filtered items contain sale price", async () => {
-      const productItems = await catalogPage.productItem.getAllProductItems();
-      const salePrice = catalogPage.productItem.getSalePriceLocator();
+      const salePrices = await catalogPage.getAllProductSalePrices();
 
-      for (const item of productItems) {
-        await expect(item.locator(salePrice)).toBeVisible();
+      for (const price of salePrices) {
+        await expect(price).toBeVisible();
       }
     });
   });

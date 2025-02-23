@@ -6,10 +6,11 @@ import { ProductItem } from "../components/ProductItem";
 import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
 import { FavoritePageLocators } from "./FavoritePageLocators";
+import { th } from "@faker-js/faker";
 
 export class FavoritePage extends BasePage {
   productItem: ProductItem;
-  private locators: FavoritePageLocators
+  private locators: FavoritePageLocators;
 
   private assertions: IPageAssertions = {
     waitForIdentifiableElement: true,
@@ -23,6 +24,10 @@ export class FavoritePage extends BasePage {
   }
 
   get identifiableElement(): Locator {
-    return this.locators.title
+    return this.locators.title;
+  }
+
+  async waitForNavigation() {
+    await this.waitFor(this.identifiableElement)
   }
 }

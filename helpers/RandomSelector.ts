@@ -1,5 +1,3 @@
-// TODO: Зламано
-
 import { Locator } from "@playwright/test";
 
 export class RandomSelector {
