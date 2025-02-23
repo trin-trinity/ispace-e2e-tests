@@ -7,6 +7,7 @@ import fs from "fs";
 import { FixtureHelper } from "../../helpers/FixtureHelper";
 import { FavoritePage } from "../../app/pages/FavoritePage";
 import { ProductDetailsPage } from "../../app/pages/ProductDetailsPage";
+import { BasketPage } from "../../app/pages/BasketPage";
 
 type Pages = {
   homePage: HomePage;
@@ -14,6 +15,7 @@ type Pages = {
   catalogPage: CatalogPage;
   favoritesPage: FavoritePage;
   productDetailsPage: ProductDetailsPage;
+  basketPage: BasketPage;
 };
 
 export const test = base.extend<Pages>({
@@ -46,6 +48,16 @@ export const test = base.extend<Pages>({
     }
 
     await use(storageHelper.filePath);
+
+    const tokenFromCookie = storageHelper.getTokenFromCookie();
+
+    if (tokenFromCookie) {
+      if (
+        await fixtureHelper.isBasketContainsProducts(request, tokenFromCookie)
+      ) {
+        await fixtureHelper.cleanUpUserCart(request, tokenFromCookie);
+      }
+    }
   },
 
   homePage: async ({ page }, use) => {
@@ -71,5 +83,10 @@ export const test = base.extend<Pages>({
   productDetailsPage: async ({ page }, use) => {
     const productDetailsPage = new ProductDetailsPage(page);
     await use(productDetailsPage);
+  },
+
+  basketPage: async ({ page }, use) => {
+    const basketPage = new BasketPage(page);
+    await use(basketPage);
   },
 });

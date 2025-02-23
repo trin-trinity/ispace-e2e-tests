@@ -6,6 +6,7 @@ export class ProductItemLocators {
   readonly article: Locator;
   readonly salePrice: Locator;
   readonly favoriteIcon: Locator;
+  readonly addToBasketButton: Locator
 
   constructor(page: Page) {
     this.item = page.locator(".card-grid-container");
@@ -13,5 +14,6 @@ export class ProductItemLocators {
     this.article = page.locator("[aria-label]").nth(1);
     this.salePrice = page.locator('[class*="price-text--sale"]');
     this.favoriteIcon = page.locator('[class="favorite-btn"]');
+    this.addToBasketButton = page.locator('[type="button"][class*="ui-btn"]');
   }
 }

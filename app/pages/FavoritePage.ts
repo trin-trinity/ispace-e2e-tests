@@ -1,12 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
-import { Filter } from "../components/Filter";
-import { CatalogPageLocators } from "./CatalogPageLocators";
 import { ProductItem } from "../components/ProductItem";
-import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
 import { FavoritePageLocators } from "./FavoritePageLocators";
-import { th } from "@faker-js/faker";
 
 export class FavoritePage extends BasePage {
   productItem: ProductItem;

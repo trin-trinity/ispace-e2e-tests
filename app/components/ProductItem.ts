@@ -31,6 +31,10 @@ export class ProductItem extends BaseView {
     await productItem.locator(this.locators.favoriteIcon).click();
   }
 
+  async clickAddToBasketButton(productItem: Locator) {
+    await productItem.locator(this.locators.addToBasketButton).click();
+  }
+
   async getArticleText(productItem: Locator) {
     const text = await productItem.locator(this.locators.article).textContent();
     if (text === null) {

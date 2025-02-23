@@ -1,17 +1,15 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
 import { Filter } from "../components/Filter";
-import { CatalogPageLocators } from "./CatalogPageLocators";
 import { ProductItem } from "../components/ProductItem";
 import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
-import { th } from "@faker-js/faker";
+import { BasketModal } from "../components/BasketModal";
 
 export class CatalogPage extends BasePage {
-  // TODO: Remove if needed
-  private locators: CatalogPageLocators;
   filter: Filter;
   productItem: ProductItem;
+  basketModal: BasketModal
 
   private assertions: IPageAssertions = {
     waitForIdentifiableElement: true,
@@ -22,9 +20,9 @@ export class CatalogPage extends BasePage {
   constructor(page: Page) {
     super(page);
 
-    this.locators = new CatalogPageLocators(this.page);
     this.filter = new Filter(page);
     this.productItem = new ProductItem(page);
+    this.basketModal = new BasketModal(page);
   }
 
   get identifiableElement(): Locator {

@@ -1,6 +1,8 @@
-import { chromium } from "playwright/test";
+import { APIRequestContext, chromium } from "playwright/test";
 import { HomePage } from "../app/pages/HomePage";
 import { StorageHelper } from "./StorageHelper";
+import { BasketController } from "../app/api/controllers/BasketController";
+import { th, tr } from "@faker-js/faker";
 
 export class FixtureHelper {
   async storeCookiesState(url: string) {
@@ -56,5 +58,22 @@ export class FixtureHelper {
     } finally {
       await browser.close();
     }
+  }
+  async getBasketProducts(request: APIRequestContext, token: string) {
+    const basketController = new BasketController(request);
+    return basketController.getBasketProducts(token);
+  }
+
+  async isBasketContainsProducts(request: APIRequestContext, token: string) {
+    const products = await this.getBasketProducts(request, token);
+    if (products.length > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  async cleanUpUserCart(request: APIRequestContext, token: string) {
+    const basketController = new BasketController(request);
+    const status = await basketController.deleteAllProductFromBasket(token);
   }
 }
