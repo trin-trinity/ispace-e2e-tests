@@ -6,12 +6,14 @@ import { StorageHelper } from "../../helpers/StorageHelper";
 import fs from "fs";
 import { FixtureHelper } from "../../helpers/FixtureHelper";
 import { FavoritePage } from "../../app/pages/FavoritePage";
+import { ProductDetailsPage } from "../../app/pages/ProductDetailsPage";
 
 type Pages = {
   homePage: HomePage;
   searchResultsPage: SearchResultsPage;
   catalogPage: CatalogPage;
-  favoritesPage: FavoritePage
+  favoritesPage: FavoritePage;
+  productDetailsPage: ProductDetailsPage;
 };
 
 export const test = base.extend<Pages>({
@@ -64,5 +66,10 @@ export const test = base.extend<Pages>({
   favoritesPage: async ({ page }, use) => {
     const favoritesPage = new FavoritePage(page);
     await use(favoritesPage);
+  },
+
+  productDetailsPage: async ({ page }, use) => {
+    const productDetailsPage = new ProductDetailsPage(page);
+    await use(productDetailsPage);
   },
 });
