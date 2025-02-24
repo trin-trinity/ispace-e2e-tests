@@ -1,8 +1,8 @@
 import { Locator, Page } from "@playwright/test";
-import { BasePage } from "../base/BasePage";
+import { BasePage } from "@pages/base/BasePage";
 import { NavigationBar } from "@components/NavigationBar";
 import { HomePageLocators } from "./HomePageLocators";
-import { IPageAssertions } from "../base/IPageAssertions";
+import { IPageAssertions } from "@pages/base/IPageAssertions";
 import { Cookies } from "@components/Cookies";
 
 export class HomePage extends BasePage {

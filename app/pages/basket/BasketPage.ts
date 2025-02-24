@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
-import { BasePage } from "../base/BasePage";
-import { IPageAssertions } from "../base/IPageAssertions";
+import { BasePage } from "@pages/base/BasePage";
+import { IPageAssertions } from "@pages/base/IPageAssertions";
 import { BasketPageLocators } from "./BasketPageLocators";
 
 export class BasketPage extends BasePage {
