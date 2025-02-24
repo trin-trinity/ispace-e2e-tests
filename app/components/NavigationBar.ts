@@ -1,8 +1,8 @@
 import { Page } from "@playwright/test";
-import { Search } from "../fragments/Search";
+import { Search } from "@fragments/Search";
 import { NavigationBarLocators } from "./NavigationBarLocators";
-import { BaseView } from "../pages/base/BaseView";
-import { UserIcon } from "../fragments/UserIcon";
+import { BaseView } from "@pages/base/BaseView";
+import { UserIcon } from "@fragments/UserIcon";
 
 export class NavigationBar extends BaseView {
   private locators: NavigationBarLocators;

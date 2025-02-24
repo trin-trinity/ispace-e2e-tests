@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { ProfileController } from "../controllers/ProfileController";
+import { ProfileController } from "@api/controllers/ProfileController";
 
 export async function isTokenExpired(
   request: APIRequestContext,

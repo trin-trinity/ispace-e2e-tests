@@ -1,6 +1,6 @@
-import { test } from "./fixtures/fixture";
 import { expect } from "@playwright/test";
-import { CatalogPage } from "../app/pages/PageSuffix";
+import { test } from "@fixtures/fixture";
+import { CatalogPage } from "@pages/PageSuffix";
 
 test.describe("Filter", () => {
   test("IS-003 products by memory size", async ({ catalogPage, baseURL }) => {

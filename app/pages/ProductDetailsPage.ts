@@ -2,7 +2,6 @@ import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
 import { IPageAssertions } from "./base/IPageAssertions";
 import { ProductDetailsLocators } from "./ProductDetailsLocators";
-import { th } from "@faker-js/faker";
 
 export class ProductDetailsPage extends BasePage {
   private locators: ProductDetailsLocators;

@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { BaseView } from "../pages/base/BaseView";
+import { BaseView } from "@pages/base/BaseView";
 import { AuthLocators } from "./AuthLocators";
 
 export class AuthPopUp extends BaseView {

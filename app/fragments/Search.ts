@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { SearchLocators } from "./SearchLocators";
-import { BaseView } from "../pages/base/BaseView";
+import { BaseView } from "@pages/base/BaseView";
 
 export class Search extends BaseView {
   private locators: SearchLocators;

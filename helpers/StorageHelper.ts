@@ -1,5 +1,5 @@
 import { APIRequestContext, BrowserContext } from "playwright/test";
-import { isTokenExpired } from "../app/api/utils/AuthUtils";
+import { isTokenExpired } from "@api/utils/AuthUtils";
 import fs from "fs";
 import path from "path";
 

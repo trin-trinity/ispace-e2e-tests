@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { MemorySizeLocators } from "./MemorySizeLocators";
-import { FilterLocators } from "../components/FilterLocators";
-import { BaseView } from "../pages/base/BaseView";
+import { FilterLocators } from "@components/FilterLocators";
+import { BaseView } from "@pages/base/BaseView";
 
 export class MemorySizeSection extends BaseView {
   private locators: MemorySizeLocators;

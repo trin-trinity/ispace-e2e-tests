@@ -2,7 +2,6 @@ import { Locator, Page } from "@playwright/test";
 
 export class ProductDetailsLocators {
   readonly reviews: Locator;
-  readonly tabBar: Locator;
 
   readonly nextSlideButton: Locator;
 
@@ -13,7 +12,6 @@ export class ProductDetailsLocators {
 
   constructor(page: Page) {
     this.reviews = page.locator('[class="product-reviews-header"]');
-    //this.tabBar = page.locator('[class*="v-tabs-bar__content"]');
     this.nextSlideButton = page.locator(
       '[class*="product-main-slider"] [class*="next-slide-btn"]'
     );

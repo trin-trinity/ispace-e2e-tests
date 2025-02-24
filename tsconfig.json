@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ESNext", "DOM"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["app/components/*"],
+      "@fragments/*": ["app/fragments/*"],
+      "@pages/*": ["app/pages/*"],
+      "@api/*": ["app/api/*"],
+      "@helpers/*": ["helpers/*"],
+      "@data/*": ["data/*"],
+      "@fixtures/*": ["tests/fixtures/*"]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

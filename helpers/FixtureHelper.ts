@@ -1,8 +1,7 @@
 import { APIRequestContext, chromium } from "playwright/test";
-import { HomePage } from "../app/pages/HomePage";
+import { HomePage } from "@pages/HomePage";
 import { StorageHelper } from "./StorageHelper";
-import { BasketController } from "../app/api/controllers/BasketController";
-import { th, tr } from "@faker-js/faker";
+import { BasketController } from "@api/controllers/BasketController";
 
 export class FixtureHelper {
   async storeCookiesState(url: string) {

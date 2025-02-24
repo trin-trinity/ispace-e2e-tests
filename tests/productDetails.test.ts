@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
-import { test } from "./fixtures/fixture";
-import { CatalogPage } from "../app/pages/PageSuffix";
+import { test } from "@fixtures/fixture";
+import { CatalogPage } from "@pages/PageSuffix";
 
 test.describe("Product details", () => {
   test("IS-006 scroll screenshots should be successful", async ({

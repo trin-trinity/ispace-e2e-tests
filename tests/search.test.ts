@@ -1,5 +1,5 @@
-import { testData } from "../data/testData";
-import { test } from "./fixtures/fixture";
+import { testData } from "@data/testData";
+import { test } from "@fixtures/fixture";
 import { expect } from "@playwright/test";
 
 test.describe("Search", () => {

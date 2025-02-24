@@ -1,10 +1,10 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
-import { Filter } from "../components/Filter";
-import { ProductItem } from "../components/ProductItem";
-import { RandomSelector } from "../../helpers/RandomSelector";
+import { Filter } from "@components/Filter";
+import { ProductItem } from "@components/ProductItem";
+import { RandomSelector } from "@helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
-import { BasketModal } from "../components/BasketModal";
+import { BasketModal } from "@components/BasketModal";
 
 export class CatalogPage extends BasePage {
   filter: Filter;

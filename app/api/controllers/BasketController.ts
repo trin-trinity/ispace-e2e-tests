@@ -1,5 +1,5 @@
 import { Request } from "../base/Request";
-import { CartResponse, Product } from "../models/Basket";
+import { CartResponse, Product } from "@api/models/Basket";
 
 export class BasketController extends Request {
   async deleteAllProductFromBasket(authToken: string): Promise<number> {

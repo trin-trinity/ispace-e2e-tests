@@ -1,7 +1,6 @@
 import { expect } from "@playwright/test";
-import { test } from "./fixtures/fixture";
-import { CatalogPage } from "../app/pages/PageSuffix";
-import { fi } from "@faker-js/faker";
+import { test } from "@fixtures/fixture";
+import { CatalogPage } from "@pages/PageSuffix";
 
 test.describe("Favorites", () => {
   test(

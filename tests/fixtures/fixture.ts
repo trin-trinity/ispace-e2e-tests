@@ -1,13 +1,13 @@
-import { test as base, ConsoleMessage } from "@playwright/test";
-import { HomePage } from "../../app/pages/HomePage";
-import { SearchResultsPage } from "../../app/pages/SearchResultsPage";
-import { CatalogPage } from "../../app/pages/CatalogPage";
-import { StorageHelper } from "../../helpers/StorageHelper";
+import { test as base } from "@playwright/test";
+import { HomePage } from "@pages/HomePage";
+import { SearchResultsPage } from "@pages/SearchResultsPage";
+import { CatalogPage } from "@pages/CatalogPage";
+import { StorageHelper } from "@helpers/StorageHelper";
 import fs from "fs";
-import { FixtureHelper } from "../../helpers/FixtureHelper";
-import { FavoritePage } from "../../app/pages/FavoritePage";
-import { ProductDetailsPage } from "../../app/pages/ProductDetailsPage";
-import { BasketPage } from "../../app/pages/BasketPage";
+import { FixtureHelper } from "@helpers/FixtureHelper";
+import { FavoritePage } from "@pages/FavoritePage";
+import { ProductDetailsPage } from "@pages/ProductDetailsPage";
+import { BasketPage } from "@pages/BasketPage";
 
 type Pages = {
   homePage: HomePage;

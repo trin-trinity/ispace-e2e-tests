@@ -1,12 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
-import { Filter } from "../components/Filter";
-import { ProductItem } from "../components/ProductItem";
-import { RandomSelector } from "../../helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
-import { BasketModal } from "../components/BasketModal";
 import { BasketPageLocators } from "./BasketPageLocators";
-import { th } from "@faker-js/faker";
 
 export class BasketPage extends BasePage {
   private locators: BasketPageLocators;

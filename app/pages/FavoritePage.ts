@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base/BasePage";
-import { ProductItem } from "../components/ProductItem";
+import { ProductItem } from "@components/ProductItem";
 import { IPageAssertions } from "./base/IPageAssertions";
 import { FavoritePageLocators } from "./FavoritePageLocators";
 

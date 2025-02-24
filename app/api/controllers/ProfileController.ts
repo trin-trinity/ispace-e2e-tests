@@ -1,4 +1,4 @@
-import { Request } from "../base/Request";
+import { Request } from "@api/base/Request";
 
 export class ProfileController extends Request {
   async getProfileInfoStatus(authToken: string): Promise<number> {
