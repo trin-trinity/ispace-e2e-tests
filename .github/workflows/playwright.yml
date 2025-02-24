@@ -2,10 +2,18 @@ name: e2e iSpace
 on:
   workflow_dispatch:
     inputs:
-      suite:
-        description: 'Select test suite to run'
+      runBy:
+        description: "Run tests by suite or by tag"
         required: true
-        default: 'all'
+        default: "suite"
+        type: choice
+        options:
+          - suite
+          - tag
+      suite:
+        description: "Select test suite to run"
+        required: false
+        default: "all"
         type: choice
         options:
           - basket
@@ -14,12 +22,24 @@ on:
           - productDetails
           - search
           - all
+      tag:
+        description: "Select tests to run by tag to run"
+        required: false
+        default: "none"
+        type: choice
+        options:
+          - basket
+          - loggedUser
+          - none
   pull_request:
     branches: main
 
 jobs:
-  test-basket:
-    if: ${{ github.event.inputs.suite == 'basket' || github.event.inputs.suite == 'all' }}
+  # ------------------------------
+  # SUITE-based jobs
+  # ------------------------------
+  suite-basket:
+    if: ${{ github.event.inputs.runBy == 'suite' && (github.event.inputs.suite == 'basket' || github.event.inputs.suite == 'all') }}
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
@@ -37,14 +57,14 @@ jobs:
       - name: Run Basket Test Suite in Single Worker Mode
         run: npm run test:basket
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}  
+        if: ${{ !cancelled() }}
         with:
           name: playwright-report-basket
           path: playwright-report/
           retention-days: 30
 
-  test-favorites:
-    if: ${{ github.event.inputs.suite == 'favorites' || github.event.inputs.suite == 'all' }}
+  suite-favorites:
+    if: ${{ github.event.inputs.runBy == 'suite' && (github.event.inputs.suite == 'favorites' || github.event.inputs.suite == 'all') }}
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
@@ -62,14 +82,14 @@ jobs:
       - name: Run Favorites Test Suite
         run: npm run test:favorites
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}  
+        if: ${{ !cancelled() }}
         with:
           name: playwright-report-favorites
           path: playwright-report/
           retention-days: 30
 
-  test-filters:
-    if: ${{ github.event.inputs.suite == 'filters' || github.event.inputs.suite == 'all' }}
+  suite-filters:
+    if: ${{ github.event.inputs.runBy == 'suite' && (github.event.inputs.suite == 'filters' || github.event.inputs.suite == 'all') }}
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
@@ -87,14 +107,14 @@ jobs:
       - name: Run Filters Test Suite
         run: npm run test:filters
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}  
+        if: ${{ !cancelled() }}
         with:
           name: playwright-report-filters
           path: playwright-report/
           retention-days: 30
 
-  test-productDetails:
-    if: ${{ github.event.inputs.suite == 'productDetails' || github.event.inputs.suite == 'all' }}
+  suite-productDetails:
+    if: ${{ github.event.inputs.runBy == 'suite' && (github.event.inputs.suite == 'productDetails' || github.event.inputs.suite == 'all') }}
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
@@ -112,14 +132,14 @@ jobs:
       - name: Run Product Details Test Suite
         run: npm run test:productDetails
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}  
+        if: ${{ !cancelled() }}
         with:
           name: playwright-report-productDetails
           path: playwright-report/
           retention-days: 30
 
-  test-search:
-    if: ${{ github.event.inputs.suite == 'search' || github.event.inputs.suite == 'all' }}
+  suite-search:
+    if: ${{ github.event.inputs.runBy == 'suite' && (github.event.inputs.suite == 'search' || github.event.inputs.suite == 'all') }}
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
@@ -137,8 +157,61 @@ jobs:
       - name: Run Search Test Suite
         run: npm run test:search
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}  
+        if: ${{ !cancelled() }}
         with:
           name: playwright-report-search
+          path: playwright-report/
+          retention-days: 30
+
+  # ------------------------------
+  # Tag-based jobs
+  # ------------------------------
+  tag-basket:
+    if: ${{ github.event.inputs.runBy == 'tag' && github.event.inputs.tag == 'basket' }}
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Tests by Basket Tag in Single Worker Mode
+        run: npm run test:tag:basket
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-basket
+          path: playwright-report/
+          retention-days: 30
+
+  tag-loggedUser:
+    if: ${{ github.event.inputs.runBy == 'tag' && github.event.inputs.tag == 'loggedUser' }}
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Tests by @loggedUser Tag
+        run: npm run test:tag:loggedUser
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-loggedUser
           path: playwright-report/
           retention-days: 30
