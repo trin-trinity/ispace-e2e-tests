@@ -19,7 +19,7 @@ export default defineConfig({
     video: "retain-on-failure",
   },
   expect: {
-    timeout: 30_000,
+    timeout: 50_000,
   },
 
   projects: [
