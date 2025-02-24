@@ -3,9 +3,17 @@ on:
   workflow_dispatch:
     inputs:
       suite:
-        description: 'Test suite to run: basket, favorites, filters, or all'
+        description: 'Select test suite to run'
         required: true
         default: 'all'
+        type: choice
+        options:
+          - basket
+          - favorites
+          - filters
+          - productDetails
+          - search
+          - all
   pull_request:
     branches: main
 jobs:
