@@ -5,9 +5,11 @@ import { ProductItem } from "@components/ProductItem";
 import { RandomSelector } from "@helpers/RandomSelector";
 import { IPageAssertions } from "./base/IPageAssertions";
 import { BasketModal } from "@components/BasketModal";
+import { NavigationBar } from "@components/NavigationBar";
 
 export class CatalogPage extends BasePage {
   filter: Filter;
+  navigationBar: NavigationBar
   productItem: ProductItem;
   basketModal: BasketModal
 
@@ -21,6 +23,7 @@ export class CatalogPage extends BasePage {
     this.filter = new Filter(page);
     this.productItem = new ProductItem(page);
     this.basketModal = new BasketModal(page);
+    this.navigationBar = new NavigationBar(page);
   }
 
   get identifiableElement(): Locator {

@@ -6,7 +6,7 @@ export class ProductItemLocators {
   readonly article: Locator;
   readonly salePrice: Locator;
   readonly favoriteIcon: Locator;
-  readonly addToBasketButton: Locator
+  readonly addToBasketButton: Locator;
 
   constructor(page: Page) {
     this.item = page.locator(".card-grid-container");
