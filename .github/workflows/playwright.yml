@@ -11,7 +11,7 @@ on:
           - suite
           - tag
       suite:
-        description: "Select test suite to run"
+        description: "Select test suite to run (only used if runBy is 'suite')"
         required: false
         default: "all"
         type: choice
@@ -23,7 +23,7 @@ on:
           - search
           - all
       tag:
-        description: "Select tests to run by tag to run"
+        description: "Select tests to run by tag to run (only used if runBy is 'tag')"
         required: false
         default: "none"
         type: choice
