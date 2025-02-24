@@ -48,12 +48,12 @@ export class ProductDetailsPage extends BasePage {
     return pictures.slice(-1)[0];
   }
 
-  private async getActivePicture() {
-    return this.locators.activePicture;
-  }
-
   async getActivePictureSource() {
     const activePicture = await this.getActivePicture();
     return this.getPictureSource(activePicture);
+  }
+
+  private async getActivePicture() {
+    return this.locators.activePicture;
   }
 }

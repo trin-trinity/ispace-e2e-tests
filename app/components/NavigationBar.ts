@@ -5,10 +5,10 @@ import { BaseView } from "@pages/base/BaseView";
 import { UserIcon } from "@fragments/UserIcon";
 
 export class NavigationBar extends BaseView {
-  private locators: NavigationBarLocators;
   userIcon: UserIcon;
-
   search: Search;
+  private locators: NavigationBarLocators;
+
   constructor(page: Page) {
     super(page);
 

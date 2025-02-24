@@ -29,7 +29,7 @@ export const test = base.extend<Pages>({
 
     try {
       if (!fs.existsSync(storageHelper.dirPath)) {
-        fs.mkdirSync(storageHelper.dirPath, { recursive: true });
+        fs.mkdirSync(storageHelper.dirPath);
       }
 
       const requiresAuth = test.info().tags.includes("@loggedUser");

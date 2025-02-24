@@ -14,10 +14,6 @@ export class MemorySizeSection extends BaseView {
     this.filterLocators = new FilterLocators(page);
   }
 
-  private getFilterLabel() {
-    return this.locators.section.locator(this.filterLocators.filterLabel);
-  }
-
   getFilterCheckbox(labelText: string) {
     return this.getFilterLabel()
       .getByText(labelText)
@@ -30,7 +26,7 @@ export class MemorySizeSection extends BaseView {
   }
 
   async selectFilter(labelText: string) {
-    await this.getFilterCheckbox(labelText).scrollIntoViewIfNeeded()
+    await this.getFilterCheckbox(labelText).scrollIntoViewIfNeeded();
     await this.getFilterCheckbox(labelText).click();
   }
 
@@ -42,5 +38,9 @@ export class MemorySizeSection extends BaseView {
 
   async waitSectionToBeVisible() {
     await this.waitFor(this.locators.section);
+  }
+
+  private getFilterLabel() {
+    return this.locators.section.locator(this.filterLocators.filterLabel);
   }
 }

@@ -5,10 +5,9 @@ import { SaleSection } from "@fragments/SaleSection";
 import { BaseView } from "@pages/base/BaseView";
 
 export class Filter extends BaseView {
-  private locators: FilterLocators;
-
   memorySizeSection: MemorySizeSection;
   saleSection: SaleSection;
+  private locators: FilterLocators;
 
   constructor(page: Page) {
     super(page);
