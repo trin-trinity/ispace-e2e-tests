@@ -26,7 +26,7 @@ export class HomePage extends BasePage {
     return this.locators.logo.first();
   }
 
-  async navigateTo(url?: string, assertions?: IPageAssertions) {
+  async navigateTo(url?: string) {
     await super.navigateTo(url, this.assertions);
   }
 }

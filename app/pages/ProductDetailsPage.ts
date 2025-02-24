@@ -20,7 +20,7 @@ export class ProductDetailsPage extends BasePage {
     return this.locators.reviews;
   }
 
-  async navigateTo(url?: string, assertions?: IPageAssertions) {
+  async navigateTo(url?: string) {
     await super.navigateTo(url, this.assertions);
   }
 

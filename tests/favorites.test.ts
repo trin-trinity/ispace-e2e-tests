@@ -6,7 +6,7 @@ test.describe("Favorites", () => {
   test(
     "IS-005 add item should be successful",
     { tag: "@loggedUser" },
-    async ({ baseURL, catalogPage, homePage, page, favoritesPage }) => {
+    async ({ baseURL, catalogPage, homePage, favoritesPage }) => {
       await test.step("Navigate to iPad Air catalog page", async () => {
         await catalogPage.navigateTo(baseURL + CatalogPage.IPAD_AIR);
       });

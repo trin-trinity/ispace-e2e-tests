@@ -10,7 +10,7 @@ export async function isTokenExpired(
   try {
     const status = await profileController.getProfileInfoStatus(token);
     return status !== 200;
-  } catch (error) {
+  } catch {
     return true;
   }
 }

@@ -28,9 +28,13 @@
   },
   "homepage": "https://github.com/trin-trinity/ispace-e2e-tests#readme",
   "devDependencies": {
+    "@eslint/js": "^9.21.0",
     "@faker-js/faker": "^9.4.0",
     "@playwright/test": "^1.50.1",
-    "@types/node": "^22.13.1"
+    "@types/node": "^22.13.1",
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.1"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

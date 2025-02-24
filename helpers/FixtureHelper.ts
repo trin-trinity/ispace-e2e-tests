@@ -73,6 +73,6 @@ export class FixtureHelper {
 
   async cleanUpUserCart(request: APIRequestContext, token: string) {
     const basketController = new BasketController(request);
-    const status = await basketController.deleteAllProductFromBasket(token);
+    await basketController.deleteAllProductFromBasket(token);
   }
 }
