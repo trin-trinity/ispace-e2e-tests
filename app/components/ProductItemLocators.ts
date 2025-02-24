@@ -14,6 +14,9 @@ export class ProductItemLocators {
     this.article = page.locator("[aria-label]").nth(1);
     this.salePrice = page.locator('[class*="price-text--sale"]');
     this.favoriteIcon = page.locator('[class="favorite-btn"]');
-    this.addToBasketButton = page.locator('[type="button"][class*="ui-btn"]');
+    this.addToBasketButton = page
+      .locator('[type="button"][class*="ui-btn"]')
+      .locator('[class*="content"]')
+      .getByText("Додати в кошик");
   }
 }
