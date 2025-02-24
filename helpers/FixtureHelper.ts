@@ -1,5 +1,5 @@
 import { APIRequestContext, chromium } from "playwright/test";
-import { HomePage } from "@pages/HomePage";
+import { HomePage } from "@pages/home/HomePage";
 import { StorageHelper } from "./StorageHelper";
 import { BasketController } from "@api/controllers/BasketController";
 

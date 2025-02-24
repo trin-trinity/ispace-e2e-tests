@@ -1,13 +1,13 @@
 import { test as base } from "@playwright/test";
-import { HomePage } from "@pages/HomePage";
+import { HomePage } from "@pages/home/HomePage";
 import { SearchResultsPage } from "@pages/SearchResultsPage";
-import { CatalogPage } from "@pages/CatalogPage";
+import { CatalogPage } from "@pages/catalog/CatalogPage";
 import { StorageHelper } from "@helpers/StorageHelper";
 import fs from "fs";
 import { FixtureHelper } from "@helpers/FixtureHelper";
-import { FavoritePage } from "@pages/FavoritePage";
-import { ProductDetailsPage } from "@pages/ProductDetailsPage";
-import { BasketPage } from "@pages/BasketPage";
+import { FavoritePage } from "@pages/favorite/FavoritePage";
+import { ProductDetailsPage } from "@pages/productDetails/ProductDetailsPage";
+import { BasketPage } from "@pages/basket/BasketPage";
 
 type Pages = {
   homePage: HomePage;
