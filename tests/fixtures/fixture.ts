@@ -1,4 +1,4 @@
-import { test as base } from "@playwright/test";
+import { test as base, ConsoleMessage } from "@playwright/test";
 import { HomePage } from "../../app/pages/HomePage";
 import { SearchResultsPage } from "../../app/pages/SearchResultsPage";
 import { CatalogPage } from "../../app/pages/CatalogPage";
@@ -89,5 +89,22 @@ export const test = base.extend<Pages>({
   basketPage: async ({ page }, use) => {
     const basketPage = new BasketPage(page);
     await use(basketPage);
+  },
+
+  page: async ({ page }, use) => {
+    const consoleMessages: string[] = [];
+
+    page.on("console", (msg) => {
+      const text = msg.text();
+      consoleMessages.push(text);
+    });
+
+    await use(page);
+
+    for (const text of consoleMessages) {
+      if (text.includes("the server responded with a status of 500")) {
+        throw new Error(`Console error found: ${text}`);
+      }
+    }
   },
 });
