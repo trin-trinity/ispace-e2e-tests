@@ -1,8 +1,11 @@
 name: e2e iSpace
 on:
   workflow_dispatch:
-  # push:
-  #   branches: main
+    inputs:
+      suite:
+        description: 'Test suite to run: basket, favorites, filters, or all'
+        required: true
+        default: 'all'
   pull_request:
     branches: main
 jobs:
@@ -22,10 +25,23 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npm run postinstall
-    - name: Run Basket Tests in Single Worker Mode
+    - name: Run Basket test suite in Single Worker Mode
+      if: ${{ github.event.inputs.suite == 'basket' || github.event.inputs.suite == 'all' }}
       run: npm run test:basket
-    - name: Run All Tests (excluding tests related to Basket functionality)
-      run: npm run test:others
+    - name: Run Favorites test suite
+      if: ${{ github.event.inputs.suite == 'favorites' || github.event.inputs.suite == 'all' }}
+      run: npm run test:favorites
+    - name: Run Filters test suite
+      if: ${{ github.event.inputs.suite == 'filters' || github.event.inputs.suite == 'all' }}
+      run: npm run test:filters
+    - name: Run Product Details test suite
+      if: ${{ github.event.inputs.suite == 'productDetails' || github.event.inputs.suite == 'all' }}
+      run: npm run test:productDetails
+    - name: Run Search test suite
+      if: ${{ github.event.inputs.suite == 'search' || github.event.inputs.suite == 'all' }}
+      run: npm run test:search
+    # - name: Run All test suites (excluding tests related to Basket functionality)
+    #   run: npm run test:others
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

@@ -6,6 +6,10 @@
     "test": "npx playwright test",
     "test:basket": "npx playwright test basket.test.ts --workers=1",
     "test:others": "npx playwright test --grep-invert \"@basket\"",
+    "test:favorites": "npx playwright test favorites.test.ts",
+    "test:filters": "npx playwright test filters.test.ts",
+    "test:productDetails": "npx playwright test productDetails.test.ts",
+    "test:search": "npx playwright test search.test.ts",
     "show-report": "npx playwright show-report",
     "postinstall": "npx playwright install --with-deps"
   },
