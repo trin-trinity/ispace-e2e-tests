@@ -21,7 +21,7 @@ export class BasketPage extends BasePage {
   }
 
   async waitProductItemToBeVisible() {
-    const firsItem = this.locators.productItem.first()
+    const firsItem = this.locators.productItem.first();
     await this.waitFor(firsItem);
   }
 
@@ -37,16 +37,8 @@ export class BasketPage extends BasePage {
     return this.locators.productItem;
   }
 
-  private async getProductArticleText(productItem: Locator) {
-    const text = await productItem.locator(this.locators.productArticle).textContent();
-    if (text === null) {
-      throw new Error("Can't get text of product item, text is null");
-    }
-    return text;
-  }
-
   async extractArticleNumber(productItem: Locator) {
-    const articleText = await this.getProductArticleText(productItem)
+    const articleText = await this.getProductArticleText(productItem);
 
     const regex = /артикул:\s*([\s\S]+)/i;
     const extractedArticle = articleText.toLowerCase().match(regex);
@@ -56,5 +48,15 @@ export class BasketPage extends BasePage {
       );
     }
     return extractedArticle[1].trim();
+  }
+
+  private async getProductArticleText(productItem: Locator) {
+    const text = await productItem
+      .locator(this.locators.productArticle)
+      .textContent();
+    if (text === null) {
+      throw new Error("Can't get text of product item, text is null");
+    }
+    return text;
   }
 }
