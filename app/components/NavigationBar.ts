@@ -26,9 +26,6 @@ export class NavigationBar extends BaseView {
   }
 
   async clickFavoritesIcon() {
-    await this.locators.favoritesIcon.scrollIntoViewIfNeeded({
-      timeout: 10_000,
-    });
     await this.locators.favoritesIcon.click();
   }
 }

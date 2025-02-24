@@ -28,9 +28,6 @@ export class ProductItem extends BaseView {
   }
 
   async clickFavoritesIcon(productItem: Locator) {
-    await productItem
-      .locator(this.locators.favoriteIcon)
-      .scrollIntoViewIfNeeded({ timeout: 10_000 });
     await productItem.locator(this.locators.favoriteIcon).click();
   }
 

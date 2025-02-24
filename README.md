@@ -130,6 +130,7 @@ The project uses a tsconfig.json file to manage TypeScript settings and simplify
 
 ```
 **Environment Variables**
+
 Before running tests, ensure that the following environment variables are configured (via a .env file or your CI environment):
 - BASE_URL
 - EMAIL
