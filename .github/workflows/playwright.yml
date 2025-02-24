@@ -37,6 +37,7 @@ jobs:
       - name: Run Basket Test Suite in Single Worker Mode
         run: npm run test:basket
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}  
         with:
           name: playwright-report-basket
           path: playwright-report/
@@ -61,6 +62,7 @@ jobs:
       - name: Run Favorites Test Suite
         run: npm run test:favorites
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}  
         with:
           name: playwright-report-favorites
           path: playwright-report/
@@ -85,6 +87,7 @@ jobs:
       - name: Run Filters Test Suite
         run: npm run test:filters
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}  
         with:
           name: playwright-report-filters
           path: playwright-report/
@@ -109,6 +112,7 @@ jobs:
       - name: Run Product Details Test Suite
         run: npm run test:productDetails
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}  
         with:
           name: playwright-report-productDetails
           path: playwright-report/
@@ -133,6 +137,7 @@ jobs:
       - name: Run Search Test Suite
         run: npm run test:search
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}  
         with:
           name: playwright-report-search
           path: playwright-report/
