@@ -5,7 +5,7 @@ import { BaseView } from "./BaseView";
 export abstract class BasePage extends BaseView {
   abstract get identifiableElement(): Locator;
 
-  protected async navigateTo(url: string = "/", assertions?: IPageAssertions) {
+  protected async navigateTo(url = "/", assertions?: IPageAssertions) {
     await this.page.goto(url);
 
     if (assertions?.waitForResponseUrl) {
