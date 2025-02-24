@@ -16,43 +16,124 @@ on:
           - all
   pull_request:
     branches: main
+
 jobs:
-  test:
-    timeout-minutes: 60
+  test-basket:
+    if: ${{ github.event.inputs.suite == 'basket' || github.event.inputs.suite == 'all' }}
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
       EMAIL: ${{ secrets.EMAIL }}
       PASSWORD: ${{ secrets.PASSWORD }}
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npm run postinstall
-    - name: Run Basket test suite in Single Worker Mode
-      if: ${{ github.event.inputs.suite == 'basket' || github.event.inputs.suite == 'all' }}
-      run: npm run test:basket
-    - name: Run Favorites test suite
-      if: ${{ github.event.inputs.suite == 'favorites' || github.event.inputs.suite == 'all' }}
-      run: npm run test:favorites
-    - name: Run Filters test suite
-      if: ${{ github.event.inputs.suite == 'filters' || github.event.inputs.suite == 'all' }}
-      run: npm run test:filters
-    - name: Run Product Details test suite
-      if: ${{ github.event.inputs.suite == 'productDetails' || github.event.inputs.suite == 'all' }}
-      run: npm run test:productDetails
-    - name: Run Search test suite
-      if: ${{ github.event.inputs.suite == 'search' || github.event.inputs.suite == 'all' }}
-      run: npm run test:search
-    # - name: Run All test suites (excluding tests related to Basket functionality)
-    #   run: npm run test:others
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Basket Test Suite in Single Worker Mode
+        run: npm run test:basket
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-basket
+          path: playwright-report/
+          retention-days: 30
+
+  test-favorites:
+    if: ${{ github.event.inputs.suite == 'favorites' || github.event.inputs.suite == 'all' }}
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Favorites Test Suite
+        run: npm run test:favorites
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-favorites
+          path: playwright-report/
+          retention-days: 30
+
+  test-filters:
+    if: ${{ github.event.inputs.suite == 'filters' || github.event.inputs.suite == 'all' }}
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Filters Test Suite
+        run: npm run test:filters
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-filters
+          path: playwright-report/
+          retention-days: 30
+
+  test-productDetails:
+    if: ${{ github.event.inputs.suite == 'productDetails' || github.event.inputs.suite == 'all' }}
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Product Details Test Suite
+        run: npm run test:productDetails
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-productDetails
+          path: playwright-report/
+          retention-days: 30
+
+  test-search:
+    if: ${{ github.event.inputs.suite == 'search' || github.event.inputs.suite == 'all' }}
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npm run postinstall
+      - name: Run Search Test Suite
+        run: npm run test:search
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-search
+          path: playwright-report/
+          retention-days: 30
