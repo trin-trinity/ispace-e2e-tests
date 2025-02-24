@@ -60,6 +60,13 @@ This repository contains a comprehensive end-to-end test suite for the [ispace.u
  ┃ ┣ 📜filters.test.ts -----> Tests for product filters
  ┃ ┣ 📜productDetails.test.ts -> Tests for product detail pages
  ┃ ┗ 📜search.test.ts ------> Tests for the search functionality
+ ┣ 📜.gitignore
+ ┣ 📜README.md
+ ┣ 📜eslint.config.mjs
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜playwright.config.ts
+ ┗ 📜tsconfig.json
 ```
 
 ---
