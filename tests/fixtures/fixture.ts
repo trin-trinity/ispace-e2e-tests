@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 import { HomePage } from "@pages/home/HomePage";
-import { SearchResultsPage } from "@pages/SearchResultsPage";
+import { SearchResultsPage } from "@pages/serachResults/SearchResultsPage";
 import { CatalogPage } from "@pages/catalog/CatalogPage";
 import { StorageHelper } from "@helpers/StorageHelper";
 import fs from "fs";
