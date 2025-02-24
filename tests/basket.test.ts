@@ -6,7 +6,7 @@ test.describe("Basket", () => {
   test(
     "IS-007 add product should be successful",
     { tag: ["@loggedUser", "@basket"] },
-    async ({ baseURL, catalogPage, basketPage, homePage }) => {
+    async ({ baseURL, catalogPage, basketPage }) => {
       await test.step("Navigate to iPhone 16 Pro catalog page", async () => {
         await catalogPage.navigateTo(baseURL + CatalogPage.IPHONE_16_PRO);
       });
