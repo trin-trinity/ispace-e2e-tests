@@ -13,8 +13,6 @@ export class CatalogPage extends BasePage {
 
   private assertions: IPageAssertions = {
     waitForIdentifiableElement: true,
-    waitForResponseUrl:
-      "https://ispaceua.helpcrunch.com/api/v2/applications/9e4b2ad5-acd2-42cc-a179-7252dbb656ac",
   };
 
   constructor(page: Page) {
