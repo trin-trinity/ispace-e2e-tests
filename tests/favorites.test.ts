@@ -13,6 +13,9 @@ test.describe("Favorites", () => {
 
       const favoriteProductArticleText =
         await test.step("Add random product to favorites", async () => {
+          // This waiter fix incorrect click to basket button
+          await catalogPage.navigationBar.awaitFavoritesIcon();
+          
           const randomItem = await catalogPage.getRandomProductItem();
           await catalogPage.productItem.clickFavoritesIcon(randomItem);
 
