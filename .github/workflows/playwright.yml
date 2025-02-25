@@ -79,7 +79,7 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npm run postinstall
-      - name: Run Favorites Test Suite
+      - name: Run Favorites Test Suite in Single Worker Mode
         run: npm run test:favorites
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
