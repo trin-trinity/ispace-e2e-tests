@@ -59,8 +59,8 @@ export class FixtureHelper {
     }
   }
   async getBasketProducts(request: APIRequestContext, token: string) {
-    const basketController = new BasketController(request);
-    return basketController.getBasketProducts(token);
+    const basketController = new BasketController(request,token);
+    return basketController.getBasketProducts();
   }
 
   async isBasketContainsProducts(request: APIRequestContext, token: string) {
@@ -72,7 +72,7 @@ export class FixtureHelper {
   }
 
   async cleanUpUserCart(request: APIRequestContext, token: string) {
-    const basketController = new BasketController(request);
-    await basketController.deleteAllProductFromBasket(token);
+    const basketController = new BasketController(request,token);
+    await basketController.deleteAllProductFromBasket();
   }
 }

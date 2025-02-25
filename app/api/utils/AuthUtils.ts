@@ -5,10 +5,10 @@ export async function isTokenExpired(
   request: APIRequestContext,
   token: string
 ) {
-  const profileController = new ProfileController(request);
+  const profileController = new ProfileController(request,token);
 
   try {
-    const status = await profileController.getProfileInfoStatus(token);
+    const status = await profileController.getProfileInfoStatus();
     return status !== 200;
   } catch {
     return true;
