@@ -27,8 +27,8 @@ export class StorageHelper {
       if (authCookie?.value) {
         return decodeURIComponent(authCookie.value);
       }
-    } catch (error) {
-      throw new Error(`Error extracting auth token from cookie: ${error}`);
+    } catch {
+      return null;
     }
 
     return null;
