@@ -52,14 +52,14 @@ export class FixtureHelper {
       );
       await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
 
-      await page.waitForURL(url);
+      await page.waitForURL(url, { timeout: 60_000 });
       await storage.saveStorageState(page.context());
     } finally {
       await browser.close();
     }
   }
   async getBasketProducts(request: APIRequestContext, token: string) {
-    const basketController = new BasketController(request,token);
+    const basketController = new BasketController(request, token);
     return basketController.getBasketProducts();
   }
 
@@ -72,7 +72,7 @@ export class FixtureHelper {
   }
 
   async cleanUpUserCart(request: APIRequestContext, token: string) {
-    const basketController = new BasketController(request,token);
+    const basketController = new BasketController(request, token);
     await basketController.deleteAllProductFromBasket();
   }
 }
