@@ -2,6 +2,7 @@ import { APIRequestContext, chromium } from "playwright/test";
 import { HomePage } from "@pages/home/HomePage";
 import { StorageHelper } from "./StorageHelper";
 import { BasketController } from "@api/controllers/BasketController";
+import { ur } from "@faker-js/faker/.";
 
 export class FixtureHelper {
   async storeCookiesState(url: string) {
@@ -51,8 +52,13 @@ export class FixtureHelper {
         process.env.PASSWORD as string
       );
       await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
-
-      await page.waitForURL("https://ispace.ua/", { timeout: 50_000 });
+      try {
+        await page.waitForURL(url, { timeout: 50_000 });
+      } catch (error) {
+        console.log(page.url());
+        await page.screenshot({ path: "screenshot.png", fullPage: true });
+        throw error;
+      }
       await storage.saveStorageState(page.context());
     } finally {
       await browser.close();
