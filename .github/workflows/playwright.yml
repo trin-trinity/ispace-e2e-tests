@@ -182,7 +182,7 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npm run postinstall
-      - name: Run Tests by Basket Tag in Single Worker Mode
+      - name: Run Tests by @basket Tag in Single Worker Mode
         run: npm run test:tag:basket
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -207,7 +207,7 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npm run postinstall
-      - name: Run Tests by @loggedUser Tag
+      - name: Run Tests by @loggedUser Tag in Single Worker Mode
         run: npm run test:tag:loggedUser
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

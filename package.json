@@ -12,7 +12,7 @@
     "test:search": "npx playwright test search.test.ts",
     "show-report": "npx playwright show-report",
     "postinstall": "npx playwright install --with-deps",
-    "test:tag:loggedUser": "npx playwright test --grep \"@loggedUser\"",
+    "test:tag:loggedUser": "npx playwright test --grep \"@loggedUser\" --workers=1",
     "test:tag:basket": "npx playwright test --grep \"@basket\" --workers=1"
   },
   "repository": {
