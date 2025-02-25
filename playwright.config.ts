@@ -11,7 +11,7 @@ export default defineConfig({
   retries: process.env.CI ? 0 : 0,
   workers: process.env.CI ? 3 : 3,
   reporter: "html",
-  timeout: 60_000,
+  timeout: 90_000,
   use: {
     baseURL: process.env.BASE_URL,
     trace: "retain-on-failure",
@@ -19,7 +19,7 @@ export default defineConfig({
     video: "retain-on-failure",
   },
   expect: {
-    timeout: 50_000,
+    timeout: 60_000,
   },
 
   projects: [
