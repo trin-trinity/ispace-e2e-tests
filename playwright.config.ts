@@ -14,7 +14,7 @@ export default defineConfig({
   timeout: 60_000,
   use: {
     baseURL: process.env.BASE_URL,
-    trace: "on",
+    trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
