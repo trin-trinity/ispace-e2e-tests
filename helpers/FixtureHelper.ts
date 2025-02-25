@@ -52,13 +52,9 @@ export class FixtureHelper {
         process.env.PASSWORD as string
       );
       await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
-      try {
-        await page.waitForURL(url, { timeout: 50_000 });
-      } catch (error) {
-        console.log("PAGE URL IS: " + page.url());
-        
-        throw error;
-      }
+
+      await page.waitForURL(url, { timeout: 50_000 });
+
       await storage.saveStorageState(page.context());
     } finally {
       await browser.close();
