@@ -55,8 +55,8 @@ export class FixtureHelper {
       try {
         await page.waitForURL(url, { timeout: 50_000 });
       } catch (error) {
-        console.log(page.url());
-        await page.screenshot({ path: "screenshot.png", fullPage: true });
+        console.log("PAGE URL IS: " + page.url());
+        
         throw error;
       }
       await storage.saveStorageState(page.context());
