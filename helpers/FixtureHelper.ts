@@ -52,7 +52,7 @@ export class FixtureHelper {
       );
       await homePage.navigationBar.userIcon.authPopUp.clickNextButton();
 
-      await page.waitForURL(url, { timeout: 50_000 });
+      await page.waitForURL("https://ispace.ua/", { timeout: 50_000 });
       await storage.saveStorageState(page.context());
     } finally {
       await browser.close();
