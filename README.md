@@ -4,6 +4,8 @@
 
 This repository contains a comprehensive end-to-end test suite for the [ispace.ua store](https://ispace.ua). Built with [Playwright](https://playwright.dev/) and [TypeScript](https://www.typescriptlang.org/), this project is designed to verify critical user journeys and functionality of the store’s web application.
 
+> [!IMPORTANT]  
+> The site [ispace.ua store] (https://ispace.ua) is constantly changing, so this possible solution may no longer work.
 ---
 
 ## Table of Contents
